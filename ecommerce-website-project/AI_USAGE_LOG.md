@@ -3,7 +3,7 @@
 
 **Dự án:** Ichigo Printing – K-pop Goods Printing Website
 
-**Môn học:** Phát triển ứng dụng WEB/TMĐT  
+**Môn học:** Phát triển ứng dụng TMĐT  
 **Giảng viên:** TS. Nguyễn Mạnh Tuấn – tuannm@ueh.edu.vn
 
 ---

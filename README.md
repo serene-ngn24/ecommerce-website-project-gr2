@@ -57,13 +57,15 @@ Website áp dụng mô hình **pre-order**, cho phép khách hàng gửi thiết
 
 ## 4. Thành viên
 
-| STT | Họ và tên | Vai trò |
-|---|---|---|
-| 1 | [Thành viên 1] | Project Manager / Business Analyst |
-| 2 | [Thành viên 2] | Front-end Developer |
-| 3 | [Thành viên 3] | Back-end Developer |
-| 4 | [Thành viên 4] | Database Developer |
-| 5 | [Thành viên 5] | UI/UX Designer / Tester |
+| Thành viên | Vai trò |
+|---|---|
+| Nguyễn Thị Diệu Thảo | Trưởng nhóm, UI/UX, Front-end, Back-end |
+| Phạm Duy Anh | BA, Front-end |
+| Trần Gia Khang | QA/Integration, UI/UX |
+| Trần Đức Nhật | QA/Integration, Front-end |
+| Trịnh Minh Phát | BA, QA/Integration |
+| Nguyễn Vĩnh Trí | BA, Back-end/Database |
+| Nguyễn Văn Trường | UI/UX, Back-end/Database |
 
 > Vai trò và thông tin thành viên sẽ được cập nhật theo phân công chính thức.
 
@@ -71,7 +73,7 @@ Website áp dụng mô hình **pre-order**, cho phép khách hàng gửi thiết
 
 | Thành phần | Công nghệ |
 |---|---|
-| Front-end | HTML5, CSS3, JavaScript |
+| Front-end | HTML, CSS, JavaScript |
 | Back-end | Đang thống nhất |
 | Database | MySQL (dự kiến) |
 | UI/UX Design | Figma |
