@@ -67,8 +67,6 @@ Website áp dụng mô hình **pre-order**, cho phép khách hàng gửi thiết
 | Nguyễn Vĩnh Trí | BA, Back-end/Database |
 | Nguyễn Văn Trường | UI/UX, Back-end/Database |
 
-> Vai trò và thông tin thành viên sẽ được cập nhật theo phân công chính thức.
-
 ## 5. Công nghệ dự kiến
 
 | Thành phần | Công nghệ |
