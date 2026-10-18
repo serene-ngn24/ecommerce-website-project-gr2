@@ -2,7 +2,7 @@
 
 Website thương mại điện tử cung cấp dịch vụ đặt in K-pop goods theo thiết kế cá nhân hóa, hoạt động theo mô hình pre-order và gom đơn sản xuất tại Hàn Quốc.
 
-**Môn học:** Phát triển ứng dụng WEB/TMĐT  
+**Môn học:** Phát triển ứng dụng TMĐT  
 **Giảng viên:** TS. Nguyễn Mạnh Tuấn – tuannm@ueh.edu.vn  
 **Trường:** Đại học Kinh tế Thành phố Hồ Chí Minh (UEH)
 
