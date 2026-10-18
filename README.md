@@ -73,7 +73,7 @@ Website áp dụng mô hình **pre-order**, cho phép khách hàng gửi thiết
 |---|---|
 | Front-end | HTML5, CSS3, JavaScript |
 | Back-end | Đang thống nhất |
-| Database | Đang thống nhất |
+| Database | MySQL (dự kiến) |
 | UI/UX Design | Figma |
 | Mockup Preview | JavaScript / Canvas API (dự kiến) |
 | Version Control | Git, GitHub |
