@@ -14,3 +14,9 @@ Dựa trên quy trình này, nhóm xác định bốn vai trò người dùng v�
 | **Quản trị viên** | Quản lý sản phẩm, các đợt pre-order, tài khoản người dùng và giám sát hoạt động website. | Quản lý sản phẩm, danh mục, quy cách in, bảng giá, phí giao hàng, đợt pre-order, tài khoản, phân quyền, toàn bộ đơn hàng và xem thống kê hoạt động. |
 
 *Nguồn: Nhóm tác giả tổng hợp.*
+
+---
+
+**Dự án:** Ichigo Printing  
+**Môn học:** Phát triển ứng dụng TMĐT  
+**Giảng viên:** TS. Nguyễn Mạnh Tuấn – tuannm@ueh.edu.vn
