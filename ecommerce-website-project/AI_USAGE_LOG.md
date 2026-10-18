@@ -81,7 +81,8 @@ Nhóm giữ lại các chức năng đặc thù do ChatGPT đề xuất, gồm u
 Những chức năng phức tạp như chỉnh sửa thiết kế chuyên nghiệp, preview 3D và đồng bộ API trực tiếp với xưởng Hàn Quốc chưa được ưu tiên triển khai.
 
 ### Người kiểm tra
-[Điền họ tên thành viên chịu trách nhiệm xác minh]
+Phạm Duy Anh
+Nguyễn Văn Trường
 
 ---
 
@@ -169,4 +170,5 @@ Sau khi đối chiếu kết quả của hai công cụ AI, nhóm thống nhất
 Các quyết định này được sử dụng làm cơ sở hoàn thiện tài liệu yêu cầu hệ thống `REQUIREMENTS.md`.
 
 ### Người kiểm tra
-[Điền họ tên thành viên chịu trách nhiệm xác minh]
+Phạm Duy Anh
+Nguyễn Văn Trường
