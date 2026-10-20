@@ -93,11 +93,11 @@ Website áp dụng mô hình **pre-order**, cho phép khách hàng gửi thiết
 
 ## 7. Liên kết
 
-- [Bảng yêu cầu hệ thống](REQUIREMENTS.md)
+- [Bảng yêu cầu hệ thống](ecommerce_website_project/REQUIREMENTS.md)
 - [Kế hoạch thực hiện](PROJECT_PLAN.md)
 - [Phân tích website tương tự](docs/competitor-analysis.md)
 
 ---
 
-**Ichigo Printing** | Đồ án nhóm – Phát triển ứng dụng WEB/TMĐT  
+**Ichigo Printing** | Đồ án nhóm – Phát triển ứng dụng TMĐT  
 University of Economics Ho Chi Minh City (UEH)
