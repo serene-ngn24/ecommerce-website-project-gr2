@@ -28,8 +28,7 @@ Website áp dụng mô hình **pre-order**, cho phép khách hàng gửi thiết
 | Nhóm khách hàng | Nhu cầu chính |
 |---|---|
 | Người hâm mộ K-pop (16–30 tuổi) | Đặt in goods cá nhân hóa phục vụ concert, fan meeting |
-| Fansite, fanclub | Đặt in số lượng lớn cho các dự án và sự kiện |
-| Cá nhân/nhóm kinh doanh goods | Đặt sản xuất sản phẩm theo thiết kế riêng để kinh doanh |
+| Fansite, fanclub, cá nhân/nhóm kinh doanh goods | Đặt in số lượng lớn cho các dự án và sự kiện |
 
 ## 3. Chức năng chính
 
@@ -94,8 +93,8 @@ Website áp dụng mô hình **pre-order**, cho phép khách hàng gửi thiết
 ## 7. Liên kết
 
 - [Bảng yêu cầu hệ thống](./ecommerce-website-project/REQUIREMENTS.md)
-- [Kế hoạch thực hiện](PROJECT_PLAN.md)
-- [Phân tích website tương tự](docs/competitor-analysis.md)
+- [Kế hoạch thực hiện](./ecommerce-website-project/PROJECT_PLAN.md)
+- [Phân tích website tương tự](./docs/competitor-analysis.md)
 
 ---
 
