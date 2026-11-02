@@ -572,3 +572,159 @@ input[type="radio"] { accent-color: var(--primary); }
   .header, .topbar, .footer, .float-contact { display: none; }
   body { color: #000; }
 }
+
+/* PRODUCT DETAIL - PROMPT 6A */
+
+.pd-page {
+  padding: 32px 20px 64px;
+  color: inherit;
+}
+
+.pd-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.pd-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+  font-size: 14px;
+}
+
+.pd-breadcrumb a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.pd-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 40px;
+  align-items: start;
+}
+
+.pd-media {
+  margin: 0;
+  min-width: 0;
+}
+
+.pd-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.pd-media figcaption,
+.pd-note {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #666;
+}
+
+.pd-info {
+  min-width: 0;
+}
+
+.pd-category {
+  font-size: 13px;
+  letter-spacing: 2px;
+}
+
+.pd-info h1 {
+  margin: 12px 0;
+  font-size: clamp(24px, 3vw, 36px);
+  line-height: 1.25;
+}
+
+.pd-price {
+  margin: 20px 0;
+  font-size: 22px;
+}
+
+.pd-price strong {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.pd-description {
+  line-height: 1.7;
+}
+
+.pd-info h2 {
+  margin: 24px 0 12px;
+  font-size: 18px;
+}
+
+.pd-specs {
+  display: grid;
+  grid-template-columns: 130px minmax(0, 1fr);
+  gap: 12px;
+  margin: 0 0 28px;
+}
+
+.pd-specs dt {
+  font-weight: 600;
+}
+
+.pd-specs dd {
+  margin: 0;
+}
+
+
+.pd-buy-button {
+  min-height: 48px;
+  padding: 12px 28px;
+  border: 2px solid var(--primary);
+  border-radius: var(--radius);
+  background: var(--primary);
+  color: var(--white);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color var(--ease),
+              border-color var(--ease),
+              box-shadow var(--ease);
+}
+
+
+.pd-buy-button:hover {
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
+  box-shadow: var(--shadow);
+}
+
+
+.pd-buy-button:focus-visible,
+.pd-breadcrumb a:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 3px;
+}
+
+/* Tablet và điện thoại */
+@media (max-width: 768px) {
+  .pd-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .pd-page {
+    padding: 20px 16px 40px;
+  }
+
+  .pd-buy-button {
+    width: 100%;
+  }
+}
+
+/* Điện thoại nhỏ */
+@media (max-width: 390px) {
+  .pd-specs {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}
