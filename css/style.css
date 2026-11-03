@@ -559,7 +559,7 @@ input[type="radio"] { accent-color: var(--primary); }
   .nav a::after { display: none; }
 }
 
-/* Giữ menu nằm ngang trên tablet */
+/* Giữ lại menu đối với kích thước 768px */
 @media (min-width: 577px) and (max-width: 768px) {
   .nav-toggle {
     display: none;
@@ -605,7 +605,7 @@ input[type="radio"] { accent-color: var(--primary); }
   .price-table { display: block; overflow-x: auto; }
 }
 
-/* Tối ưu header cho điện thoại 390px */
+/* Giữ lại menu đối với kích thước 390px */
 @media (max-width: 576px) {
   .header__inner {
     gap: 8px;
