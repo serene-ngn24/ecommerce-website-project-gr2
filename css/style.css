@@ -559,12 +559,96 @@ input[type="radio"] { accent-color: var(--primary); }
   .nav a::after { display: none; }
 }
 
+/* Giữ menu nằm ngang trên tablet */
+@media (min-width: 577px) and (max-width: 768px) {
+  .nav-toggle {
+    display: none;
+  }
+
+  .header__inner {
+    gap: 16px;
+  }
+
+  .nav {
+    position: static;
+    display: flex;
+    flex-direction: row;
+    gap: 14px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    flex-shrink: 0;
+  }
+
+  .nav a {
+    padding-block: 8px;
+    border-bottom: none;
+    white-space: nowrap;
+  }
+
+  .nav a::after {
+    display: block;
+  }
+
+  .header__icons {
+    gap: 12px;
+    flex-shrink: 0;
+  }
+}
+
 @media (max-width: 576px) {
   :root { --gutter: 16px; }
   .grid--2, .grid--3, .grid--4,
   .steps, .footer__grid { grid-template-columns: 1fr; }
   .hero__actions .btn { width: 100%; }
   .price-table { display: block; overflow-x: auto; }
+}
+
+/* Tối ưu header cho điện thoại 390px */
+@media (max-width: 576px) {
+  .header__inner {
+    gap: 8px;
+  }
+
+  .logo img {
+    max-width: 65px;
+    height: auto;
+  }
+
+  .nav {
+    position: static;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    flex-shrink: 1;
+  }
+
+  .nav a {
+    font-size: 12px;
+    padding: 6px 0;
+    white-space: nowrap;
+    border-bottom: none;
+  }
+
+  .nav a::after {
+    display: block;
+  }
+
+  .header__icons {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .header__icon svg {
+    width: 19px;
+    height: 19px;
+  }
 }
 
 /* ---------- 15. TRUY CẬP & IN ẤN ---------- */
