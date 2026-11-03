@@ -92,8 +92,8 @@ Website áp dụng mô hình **pre-order**, cho phép khách hàng gửi thiết
 
 ## 7. Liên kết
 
-- [Bảng yêu cầu hệ thống](./ecommerce-website-project/REQUIREMENTS.md)
-- [Kế hoạch thực hiện](./ecommerce-website-project/PROJECT_PLAN.md)
+- [Bảng yêu cầu hệ thống](./docs/REQUIREMENTS.md)
+- [Kế hoạch thực hiện](./docs/PROJECT_PLAN.md)
 - [Phân tích website tương tự](./docs/competitors-analysis.md)
 
 ---
