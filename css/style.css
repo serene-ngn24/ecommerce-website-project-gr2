@@ -188,9 +188,13 @@ p  { margin: 0 0 1em; max-width: 70ch; }
 .header__inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 24px;
+  justify-content: space-between; 
+  gap: 30px;
   min-height: 72px;
+}
+.nav {
+    display: flex;
+    gap: 25px; 
 }
 .logo {
   font-size: 1.5rem;
@@ -581,8 +585,8 @@ input[type="radio"] { accent-color: var(--primary); }
 /* 1. LOGO */
 .logo img {
     display: block;
-    width: 190px;
-    height: 80px;
+    width: 380px;
+    height: 190px;
     object-fit: contain;
 }
 
@@ -611,7 +615,9 @@ input[type="radio"] { accent-color: var(--primary); }
     grid-template-columns: 1.1fr 0.9fr;
     gap: 40px;
     align-items: center;
-}
+    justify-content: flex-start; 
+    gap: 40px;
+  }
 
 .hero__content {
     display: flex;
