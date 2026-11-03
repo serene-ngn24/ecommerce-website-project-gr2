@@ -188,9 +188,13 @@ p  { margin: 0 0 1em; max-width: 70ch; }
 .header__inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 24px;
+  justify-content: space-between; 
+  gap: 30px;
   min-height: 72px;
+}
+.nav {
+    display: flex;
+    gap: 25px; 
 }
 .logo {
   font-size: 1.5rem;
@@ -727,4 +731,297 @@ input[type="radio"] { accent-color: var(--primary); }
     grid-template-columns: 1fr;
     gap: 6px;
   }
+/* ========================================
+   ĐIỀU CHỈNH GIAO DIỆN TRANG CHỦ
+   ICHIGO PRINTING
+   ======================================== */
+
+/* 1. LOGO */
+.logo img {
+    display: block;
+    width: 380px;
+    height: 190px;
+    object-fit: contain;
+}
+
+/* 2. HEADER ICONS */
+.header__icons {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.header__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink);
+    transition: color var(--ease);
+}
+
+.header__icon:hover {
+    color: var(--primary);
+}
+
+/* 3. BANNER */
+.hero__inner {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items: center;
+    justify-content: flex-start; 
+    gap: 40px;
+  }
+
+.hero__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+}
+
+.hero__eyebrow {
+    margin-bottom: 12px;
+    color: var(--primary);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.hero__content h1 {
+    margin-bottom: 18px;
+}
+
+.hero__content h1 span {
+    display: block;
+    color: var(--primary);
+}
+
+.hero__lead {
+    font-size: var(--fs-lg);
+    color: var(--ink-soft);
+}
+
+/* 4. NÚT KHÁM PHÁ SẢN PHẨM */
+.hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.hero__actions .btn {
+    color: var(--white);
+    background: var(--primary);
+    border: 2px solid var(--primary);
+    border-radius: var(--radius);
+    padding: 16px 36px;
+    font-weight: 700;
+}
+
+.hero__actions .btn:hover {
+    color: var(--white);
+    background: var(--primary-dark);
+    border-color: var(--primary-dark);
+}
+
+/* 5. HÌNH ẢNH BANNER */
+.hero__img {
+    width: 100%;
+    height: 380px;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+}
+
+.hero__img img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* 6. HÌNH ẢNH SẢN PHẨM */
+.product__thumb {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: var(--bg-alt);
+}
+
+.product__thumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform var(--ease);
+}
+
+.product:hover .product__thumb img {
+    transform: scale(1.04);
+}
+
+/* 7. DANH MỤC SẢN PHẨM */
+.category-card {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    padding: 20px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+}
+
+.category-card__image {
+    flex: 0 0 42%;
+    overflow: hidden;
+    border-radius: var(--radius);
+}
+
+.category-card__image img {
+    display: block;
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+}
+
+.category-card__content {
+    flex: 1;
+}
+
+.category-card__content h3 {
+    margin-bottom: 10px;
+    color: var(--primary);
+}
+
+.category-card__content p {
+    margin-bottom: 15px;
+    color: var(--ink-soft);
+}
+
+/* 8. GIỚI THIỆU DỊCH VỤ */
+.intro-service {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 28px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+}
+
+.intro-service__content {
+    flex: 1;
+}
+
+.intro-service__content h3 {
+    margin-bottom: 15px;
+}
+
+.intro-service__content p {
+    margin-bottom: 12px;
+    color: var(--ink-soft);
+}
+
+.intro-service__content .btn {
+    margin-top: 10px;
+}
+
+.intro-service__image {
+    flex: 0 0 38%;
+    overflow: hidden;
+    border-radius: var(--radius);
+}
+
+.intro-service__image img {
+    display: block;
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+}
+
+/* 9. HIỆU ỨNG MENU VÀ LIÊN KẾT */
+.nav a,
+.footer a {
+    transition: color var(--ease);
+}
+
+.nav a:hover {
+    color: var(--primary);
+}
+
+/* 10. RESPONSIVE TABLET */
+@media (max-width: 992px) and (min-width: 769px) {
+    .hero__inner {
+        grid-template-columns: 1fr 0.9fr;
+        gap: 24px;
+    }
+
+    .hero__img {
+        height: 300px;
+    }
+
+    .logo img {
+        width: 160px;
+    }
+}
+
+/* 11. RESPONSIVE MOBILE */
+@media (max-width: 768px) {
+    .logo img {
+        width: 145px;
+        height: 65px;
+    }
+
+    .header__icons {
+        gap: 14px;
+    }
+
+    .hero__inner {
+        grid-template-columns: 1fr;
+    }
+
+    .hero__img {
+        height: 280px;
+    }
+
+    .category-card,
+    .intro-service {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .category-card__image,
+    .intro-service__image {
+        flex: 1;
+        width: 100%;
+    }
+
+    .category-card__image img,
+    .intro-service__image img {
+        height: 220px;
+    }
+}
+
+/* 12. RESPONSIVE ĐIỆN THOẠI NHỎ */
+@media (max-width: 576px) {
+    .hero__img {
+        height: 220px;
+    }
+
+    .hero__actions .btn {
+        width: 100%;
+    }
+
+    .product__thumb {
+        aspect-ratio: 1 / 1;
+    }
+
+    .category-card,
+    .intro-service {
+        padding: 18px;
+    }
 }
