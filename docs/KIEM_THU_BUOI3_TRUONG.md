@@ -135,3 +135,12 @@ Bản ghép bổ sung `data-product-id` và sự kiện `products:rendered`. `ca
 | P3-REAL-05 | Dùng Tab qua các điều khiển và nhấn Enter trong ô tìm kiếm | Có focus rõ, trang giữ trạng thái lọc và không tải lại | Chờ xác nhận thao tác trên trình duyệt |
 
 Phạm vi báo cáo này thuộc Prompt 3; không xác nhận thay toàn bộ phần giỏ hàng, trang chi tiết hoặc các chức năng khác của Buổi 3.
+
+
+<!-- ICHIGO-MO-RONG-BUOI3-20261109 -->
+
+## 6. Cập nhật sau tích hợp và mở rộng ngày 09/11/2026
+
+Phần tích hợp trước đã được push ở commit 6591e79. Header được đồng bộ riêng ở e5b012b; lọc khoảng giá và đặt lại được push ở 91cad95.
+
+[Bảng kiểm thử mở rộng và ảnh minh chứng](KIEM_THU_MO_RONG_BUOI3_TRUONG.md) ghi riêng kết quả 19 ca DOM mô phỏng, ảnh thực tế, lỗi mobile đã sửa và các xác nhận trình duyệt còn thiếu. Các trạng thái chờ trong mục trước thuộc thời điểm ghi nhận bản trước.

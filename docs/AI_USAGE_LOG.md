@@ -3657,3 +3657,2657 @@ Kết quả Terminal ngày 09/11/2026 xác nhận đã lưu tạm phần Prompt 
 ![P3-UI-07: Bộ lọc và nút giỏ hàng trên bản ghép](minh-chung-truong/buoi3/p3_07_loc_tang_dan_nut_gio_hang.png)
 
 Các khoảng trắng cuối dòng trong phần nhật ký mới được chuẩn hóa để kiểm tra Git không báo trailing whitespace. Nội dung phản hồi Claude được giữ nguyên.
+
+
+<!-- ICHIGO-MO-RONG-BUOI3-20261109 -->
+
+## Bổ sung ngày 09/11/2026 – Đồng bộ header và mở rộng bộ lọc
+
+### Phạm vi và công cụ
+
+| Hạng mục | Công cụ hỗ trợ | Kết quả |
+|---|---|---|
+| Đồng bộ header theo About | ChatGPT/Codex | Dùng CSS chung cho năm trang; commit e5b012b |
+| Lọc khoảng giá và đặt lại bộ lọc | Claude đề xuất; ChatGPT/Codex rà soát, kiểm tra và hỗ trợ điều chỉnh | Commit 91cad95 |
+
+Header được thực hiện trong một chặng riêng. Phản hồi Claude dưới đây thuộc phần mở rộng bộ lọc, không được dùng làm bằng chứng Claude tạo phần header.
+
+### Nguồn lưu prompt, mã đầu vào và phản hồi
+
+Prompt được lưu theo nội dung đã chuẩn bị trong cuộc trao đổi. Năm file đầu vào được tái lập từ commit e5b012b theo đúng danh sách file trong lệnh gom prompt. Đây là ảnh chụp mã từ Git, không phải bản lưu độc lập của clipboard đã gửi Claude. Khoảng trắng cuối dòng của phần bổ sung được chuẩn hóa khi ghi Markdown.
+
+Phản hồi Claude được giữ đầy đủ từ Pasted text(4).txt do người dùng cung cấp. Claude ghi rõ chưa chạy mã. Các kết quả Node.js và ảnh tại máy được ghi riêng ở phần kiểm tra sau phản hồi.
+
+### Prompt đã chuẩn bị
+
+<details>
+<summary>Mở prompt và đủ năm file mã đầu vào</summary>
+
+Tôi đang phát triển website Ichigo Printing bằng HTML, CSS và JavaScript thuần.
+
+Phần việc được giao:
+Trang danh sách sản phẩm có tìm kiếm, lọc và sắp xếp hoạt động đồng bộ với giao diện.
+
+Hiện trạng:
+- Đã tìm theo tên, lọc danh mục và sắp xếp giá.
+- Các điều kiện đang hoạt động kết hợp.
+- Danh sách được tạo bằng renderProducts(list).
+- Giỏ hàng được tích hợp qua cart.js và cart-list.js.
+- Header vừa được đồng bộ theo trang About và đã commit riêng.
+- Dữ liệu hiện có gồm 8 sản phẩm trong products.js.
+
+Yêu cầu lần này:
+Bổ sung lọc khoảng giá và nút "Đặt lại bộ lọc", dựa trên mã nguồn đầy đủ ở cuối prompt.
+
+1. Lọc khoảng giá
+- Thêm hai ô "Giá từ (đ)" và "Giá đến (đ)".
+- Dùng id min-price và max-price.
+- Giá nhập là số nguyên không âm, đơn vị đồng.
+- Bỏ trống một đầu nghĩa là không giới hạn đầu đó.
+- Hai đầu cùng trống nghĩa là không giới hạn giá.
+- Kết quả bao gồm cả hai mức giá biên.
+- Khoảng giá phối hợp đồng thời với từ khóa, danh mục và sắp xếp.
+- Cập nhật kết quả khi nhập hoặc thay đổi điều kiện.
+- Không sửa dữ liệu hoặc thứ tự mảng products gốc.
+
+2. Kiểm tra dữ liệu
+- Phát hiện giá âm, số không hợp lệ và số thập phân.
+- Với input type="number", kiểm tra cả validity.badInput:
+  không được coi giá trị nhập sai là ô trống không giới hạn.
+- Khi nhập đủ hai đầu, giá từ không được lớn hơn giá đến.
+- Hiển thị lỗi tiếng Việt gần nhóm khoảng giá, dùng id price-error.
+- Gắn aria-invalid cho ô có lỗi và liên kết thông báo bằng aria-describedby.
+- Khi khoảng giá sai, xóa các thẻ kết quả và thông báo:
+  "Vui lòng nhập khoảng giá hợp lệ để xem sản phẩm."
+- Không dùng thông báo "Không có sản phẩm phù hợp" cho lỗi nhập liệu.
+- Khi sửa lại hợp lệ, xóa lỗi và cập nhật kết quả bình thường.
+- Nếu dùng kiểm tra tùy chỉnh, xử lý nhất quán với validation của form.
+
+3. Đặt lại bộ lọc
+- Thêm nút "Đặt lại bộ lọc", id reset-filters, type="button".
+- Xóa từ khóa và hai ô giá.
+- Đưa danh mục về "Tất cả danh mục".
+- Đưa sắp xếp về "Mặc định".
+- Xóa lỗi và trạng thái aria-invalid.
+- Hiển thị lại đủ sản phẩm theo thứ tự gốc.
+- Cập nhật đúng dòng đếm kết quả.
+- Giữ nguyên dữ liệu giỏ hàng và số lượng đã thêm.
+
+4. Giữ tích hợp hiện tại
+- Giữ tên hàm renderProducts(list).
+- Giữ data-product-id trên mỗi thẻ sản phẩm.
+- Giữ sự kiện document "products:rendered" sau mỗi lần dựng lại danh sách,
+  kể cả khi kết quả rỗng hoặc bị xóa do lỗi nhập liệu.
+- Giữ class thẻ, cấu trúc footer thẻ và link chi tiết đúng product.id.
+- Để cart-list.js tiếp tục gắn nút giỏ hàng sau mỗi lần lọc.
+- Không tạo trùng nút, sự kiện click hoặc option danh mục.
+- Nhấn Enter trong form không tải lại trang.
+- Giữ nguyên thứ tự nạp các script hiện có.
+- Không thay đổi header, footer, dữ liệu sản phẩm hoặc các module giỏ hàng.
+
+5. Giao diện
+- Giữ font Roboto, màu và phong cách hiện có.
+- Giữ phần tìm kiếm, danh mục và sắp xếp ở hàng đầu trên desktop.
+- Đặt khoảng giá và nút đặt lại thành hàng tiếp theo.
+- Trên mobile 390px, các điều khiển xếp dọc và không tràn ngang.
+- Có label đúng for/id, focus bàn phím rõ và thứ tự Tab tự nhiên.
+- Tạo file css/product-filter.css cho phần bổ sung.
+- CSS mới chỉ tác động khu vực bộ lọc và thông báo liên quan.
+- Link CSS mới trong product.html trước css/header.css.
+- Loại bỏ inline style của form/nhóm điều khiển nếu cần để CSS mới hoạt động.
+- Không chỉnh css/style.css hoặc css/header.css.
+
+6. Kiểm thử cần đối chiếu
+Các kết quả dưới đây là kết quả MONG ĐỢI, không phải xác nhận đã chạy:
+
+| Điều kiện | Kết quả mong đợi |
+|---|---|
+| Không chọn điều kiện | ID 1,2,3,4,5,6,7,8 theo thứ tự gốc |
+| Giá 50000–100000, tăng dần | ID 6,5,8,3 |
+| Giá 50000–100000, giảm dần | ID 3,8,5,6 |
+| Chỉ giá từ 100000, mặc định | ID 1,2,7 |
+| Chỉ giá đến 60000, mặc định | ID 4,5,6 |
+| Hai đầu cùng 75000 | Chỉ ID 8 |
+| acrylic + Phụ kiện mica + 50000–100000 | Chỉ Acrylic Keychain, ID 8 |
+| Giá từ 200000 | 0/8, thông báo không có sản phẩm phù hợp |
+| Giá từ 150000, giá đến 50000 | Báo lỗi khoảng giá, chưa hiển thị kết quả |
+| Giá âm, thập phân hoặc badInput | Báo lỗi nhập liệu |
+| Đặt lại sau khi lọc hoặc nhập sai | Đủ 8 sản phẩm, điều khiển và lỗi trở về ban đầu |
+| Thêm vào giỏ sau lọc rồi đặt lại | Số lượng giỏ giữ nguyên, mỗi click chỉ tăng 1 |
+
+Đầu ra:
+A. Giải thích ngắn cách ghép vào mã hiện tại.
+B. Toàn bộ ecommerce-project/product.html để thay file.
+C. Toàn bộ js/module/search-filter.js để thay file.
+D. Toàn bộ css/product-filter.css để tạo mới.
+E. Bảng kiểm thử gồm thao tác, kết quả mong đợi và trạng thái thực tế.
+
+Trả đầy đủ từng file, không dùng dấu ba chấm hoặc yêu cầu tự ghép đoạn.
+Các file chỉ tham khảo phải được giữ nguyên.
+Nếu chưa thực sự chạy kiểm thử, ghi "Chưa chạy".
+Không tự tạo ảnh minh chứng, phản hồi AI khác hoặc nhật ký kiểm thử giả.
+
+MÃ NGUỒN HIỆN TẠI:
+
+### ecommerce-project/product.html
+```html
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Khám phá các sản phẩm K-pop goods cá nhân hóa tại Ichigo Printing.">
+    <title>Ichigo Printing | Sản phẩm</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/cart.css">
+
+    <script src="../js/data/products.js" defer></script>
+    <script src="../js/module/search-filter.js" defer></script>
+    <script src="../js/module/cart.js" defer></script>
+    <script src="../js/module/cart-list.js" defer></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/header.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+<header class="header site-header">
+  <div class="container header__inner">
+    <a class="logo" href="index.html" aria-label="Ichigo Printing - Trang chủ">
+      <img src="../images/logo.png" alt="Ichigo Printing" width="2000" height="2000">
+    </a>
+    <nav class="nav" aria-label="Điều hướng chính">
+      <a href="index.html">Trang chủ</a>
+      <a href="product.html" class="active" aria-current="page">Sản phẩm</a>
+      <a href="about.html">Giới thiệu</a>
+    </nav>
+    <div class="header__icons">
+      <a href="product.html" class="header__icon" aria-label="Tìm kiếm sản phẩm">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <line x1="16" y1="16" x2="21" y2="21"></line>
+        </svg>
+      </a>
+      <a href="cart.html" class="header__icon cart-header-link" aria-label="Giỏ hàng">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 3h2l2.4 12.2a2 2 0 0 0 2 1.6h8.8a2 2 0 0 0 2-1.6L22 7H6"></path>
+          <circle cx="10" cy="21" r="1"></circle>
+          <circle cx="19" cy="21" r="1"></circle>
+        </svg>
+        <span class="cart-badge" data-cart-count hidden>0</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+    <main>
+
+        <!-- PAGE INTRODUCTION -->
+        <section class="section section--alt">
+            <div class="container">
+                <div class="section__head">
+                    <p class="text-primary"><strong>ICHIGO PRINTING</strong></p>
+                    <h1>Our Products</h1>
+                    <p>
+                        Khám phá bộ sưu tập K-pop goods được thiết kế
+                        và cá nhân hóa theo phong cách riêng của bạn.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRODUCT LIST -->
+        <section class="section">
+            <div class="container">
+
+                <div class="section__head">
+                    <h2>Danh sách sản phẩm</h2>
+                    <p>
+                        Các mẫu sản phẩm in ấn dành cho cộng đồng người hâm mộ K-pop.
+                    </p>
+                </div>
+
+                <!-- SEARCH / FILTER / SORT -->
+                <form id="filter-form" role="search"
+                      aria-label="Tìm kiếm, lọc và sắp xếp sản phẩm"
+                      style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; margin-bottom: 16px;">
+
+                    <div class="form-group" style="flex: 2 1 240px; margin-bottom: 0;">
+                        <label for="search-input">Tìm theo tên sản phẩm</label>
+                        <input type="text" id="search-input" name="keyword"
+                               placeholder="Ví dụ: acrylic" autocomplete="off">
+                    </div>
+
+                    <div class="form-group" style="flex: 1 1 180px; margin-bottom: 0;">
+                        <label for="category-select">Danh mục</label>
+                        <select id="category-select" name="category">
+                            <option value="all">Tất cả danh mục</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" style="flex: 1 1 180px; margin-bottom: 0;">
+                        <label for="sort-select">Sắp xếp theo giá</label>
+                        <select id="sort-select" name="sort">
+                            <option value="default">Mặc định</option>
+                            <option value="asc">Giá tăng dần</option>
+                            <option value="desc">Giá giảm dần</option>
+                        </select>
+                    </div>
+
+                </form>
+
+                <p id="filter-status" role="status" aria-live="polite"
+                   style="margin-bottom: 16px; color: var(--ink-soft);"></p>
+
+                <div class="grid grid--4" id="product-list"></div>
+
+                <!-- PRICE NOTE -->
+                <div class="alert" style="margin-top: 32px;">
+                    <strong>Lưu ý:</strong>
+                    Giá hiển thị là giá demo phục vụ mục đích minh họa giao diện.
+                    Giá thực tế có thể thay đổi tùy theo kích thước, chất liệu,
+                    số lượng và yêu cầu thiết kế.
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+
+                <div>
+                    <h3>ICHIGO PRINTING</h3>
+                    <p>In dấu những khoảnh khắc đặc biệt.</p>
+                </div>
+
+                <div>
+                    <h4>Liên kết</h4>
+                    <p><a href="index.html">Trang chủ</a></p>
+                    <p><a href="product.html">Sản phẩm</a></p>
+                    <p><a href="about.html">Giới thiệu</a></p>
+                </div>
+
+                <div>
+                    <h4>Theo dõi chúng tôi</h4>
+                    <p>Instagram | X | TikTok | YouTube</p>
+                </div>
+
+            </div>
+
+            <div class="footer__bottom">
+                <p>© 2026 Ichigo Printing. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
+```
+
+### js/module/search-filter.js
+```javascript
+// Hiển thị danh sách từ dữ liệu dùng chung, giữ các class CSS hiện có.
+function renderProducts(list) {
+    const productList = document.getElementById("product-list");
+    productList.replaceChildren();
+
+    if (list.length === 0) {
+        const message = document.createElement("p");
+        message.className = "alert";
+        message.style.gridColumn = "1 / -1";
+        message.textContent = "Không có sản phẩm phù hợp.";
+        productList.appendChild(message);
+        document.dispatchEvent(new Event("products:rendered"));
+        return;
+    }
+
+    const fragment = document.createDocumentFragment();
+
+    list.forEach(function (product) {
+        const card = document.createElement("article");
+        card.className = "product";
+        card.dataset.productId = String(product.id);
+        card.innerHTML = `
+            <a class="product__thumb">
+                <img alt="">
+                <span class="product__badge">Demo</span>
+            </a>
+            <div class="product__body">
+                <h3 class="product__title"></h3>
+                <p class="product__meta"></p>
+                <p class="product__price"></p>
+                <div class="product__footer">
+                    <a class="btn btn--outline btn--sm">Xem chi tiết</a>
+                </div>
+            </div>
+        `;
+
+        const detailUrl = `product-detail.html?id=${product.id}`;
+        const image = card.querySelector("img");
+        image.src = product.image;
+        image.alt = product.description;
+
+        card.querySelector(".product__thumb").href = detailUrl;
+        card.querySelector(".product__title").textContent = product.name;
+        card.querySelector(".product__meta").textContent = product.description;
+        card.querySelector(".product__price").textContent =
+            product.price.toLocaleString("vi-VN") + "đ";
+        card.querySelector(".product__footer a").href = detailUrl;
+
+        fragment.appendChild(card);
+    });
+
+    productList.appendChild(fragment);
+    document.dispatchEvent(new Event("products:rendered"));
+}
+
+/* ==========================================================
+   TÌM KIẾM - LỌC DANH MỤC - SẮP XẾP GIÁ
+   Mọi hàm xử lý trả về MẢNG MỚI, không thay đổi mảng `products`.
+   ========================================================== */
+
+const ALL_CATEGORIES = "all";
+
+// Lấy danh sách danh mục không trùng, theo thứ tự xuất hiện trong dữ liệu.
+function getCategories(list) {
+    return Array.from(new Set(list.map(function (product) {
+        return product.category;
+    })));
+}
+
+// Tìm theo tên, không phân biệt hoa/thường. Từ khóa rỗng trả về toàn bộ.
+function searchByName(list, keyword) {
+    const normalized = keyword.trim().toLowerCase();
+
+    if (normalized === "") {
+        return list.slice();
+    }
+
+    return list.filter(function (product) {
+        return product.name.toLowerCase().includes(normalized);
+    });
+}
+
+// Lọc theo danh mục. "all" trả về toàn bộ.
+function filterByCategory(list, category) {
+    if (category === ALL_CATEGORIES) {
+        return list.slice();
+    }
+
+    return list.filter(function (product) {
+        return product.category === category;
+    });
+}
+
+// Sắp xếp theo giá trên bản sao. "default" giữ nguyên thứ tự đầu vào.
+function sortByPrice(list, order) {
+    const sorted = list.slice();
+
+    if (order === "asc") {
+        sorted.sort(function (a, b) { return a.price - b.price; });
+    } else if (order === "desc") {
+        sorted.sort(function (a, b) { return b.price - a.price; });
+    }
+
+    return sorted;
+}
+
+// Kết hợp 3 điều kiện: tìm kiếm -> lọc danh mục -> sắp xếp.
+function getVisibleProducts(source, criteria) {
+    const searched = searchByName(source, criteria.keyword);
+    const filtered = filterByCategory(searched, criteria.category);
+    return sortByPrice(filtered, criteria.sort);
+}
+
+/* ---------- Giao diện ---------- */
+
+function getFilterElements() {
+    return {
+        keyword: document.getElementById("search-input"),
+        category: document.getElementById("category-select"),
+        sort: document.getElementById("sort-select"),
+        form: document.getElementById("filter-form"),
+        status: document.getElementById("filter-status")
+    };
+}
+
+function populateCategoryOptions(select, list) {
+    getCategories(list).forEach(function (category) {
+        const option = document.createElement("option");
+        option.value = category;
+        option.textContent = category;
+        select.appendChild(option);
+    });
+}
+
+function updateStatus(statusElement, visibleCount, totalCount) {
+    statusElement.textContent =
+        "Hiển thị " + visibleCount + " / " + totalCount + " sản phẩm.";
+}
+
+// Đọc điều khiển -> tính kết quả -> cập nhật giao diện bằng renderProducts.
+function applyFilters() {
+    const elements = getFilterElements();
+
+    const result = getVisibleProducts(products, {
+        keyword: elements.keyword.value,
+        category: elements.category.value,
+        sort: elements.sort.value
+    });
+
+    renderProducts(result);
+    updateStatus(elements.status, result.length, products.length);
+}
+
+function initSearchFilter() {
+    const elements = getFilterElements();
+
+    // Nếu thiếu thành phần giao diện, vẫn hiển thị danh sách như trước.
+    if (!elements.keyword || !elements.category || !elements.sort ||
+        !elements.form || !elements.status) {
+        renderProducts(products);
+        return;
+    }
+
+    populateCategoryOptions(elements.category, products);
+
+    elements.keyword.addEventListener("input", applyFilters);
+    elements.category.addEventListener("change", applyFilters);
+    elements.sort.addEventListener("change", applyFilters);
+    // Nhấn Enter trong ô tìm kiếm không được tải lại trang.
+    elements.form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        applyFilters();
+    });
+
+    applyFilters();
+}
+
+initSearchFilter();
+```
+
+### js/data/products.js
+```javascript
+// Dữ liệu dùng chung cho các trang sản phẩm. Giá được giữ từ bản demo hiện có.
+const products = [
+    {
+        id: 1,
+        name: "Fabric Slogan",
+        price: 120000,
+        category: "Slogan",
+        image: "../images/product-1.jpg",
+        description: "Slogan vải in theo thiết kế riêng"
+    },
+    {
+        id: 2,
+        name: "Custom Printed Slogan",
+        price: 150000,
+        category: "Slogan",
+        image: "../images/product-2.jpg",
+        description: "Slogan in theo mẫu cá nhân hóa"
+    },
+    {
+        id: 3,
+        name: "Uchiwa Fan",
+        price: 85000,
+        category: "Quạt",
+        image: "../images/product-3.jpg",
+        description: "Quạt cầm tay in hình thần tượng"
+    },
+    {
+        id: 4,
+        name: "Custom Badge",
+        price: 45000,
+        category: "Huy hiệu",
+        image: "../images/product-4.jpg",
+        description: "Huy hiệu in hình theo yêu cầu"
+    },
+    {
+        id: 5,
+        name: "Photocard Set",
+        price: 60000,
+        category: "Ảnh in",
+        image: "../images/product-5.jpg",
+        description: "Bộ ảnh photocard cá nhân hóa"
+    },
+    {
+        id: 6,
+        name: "Photo Print / Postcard",
+        price: 50000,
+        category: "Ảnh in",
+        image: "../images/product-6.jpg",
+        description: "Ảnh in và postcard lưu niệm"
+    },
+    {
+        id: 7,
+        name: "Acrylic Standee",
+        price: 130000,
+        category: "Phụ kiện mica",
+        image: "../images/product-7.jpg",
+        description: "Standee mica in hình cá nhân hóa"
+    },
+    {
+        id: 8,
+        name: "Acrylic Keychain",
+        price: 75000,
+        category: "Phụ kiện mica",
+        image: "../images/product-8.jpg",
+        description: "Móc khóa mica theo thiết kế riêng"
+    }
+];
+```
+
+### css/style.css
+```css
+/* ==========================================================
+   WEBSITE ĐẶT IN SLOGAN / KHĂN (TOWEL)
+   Màu chủ đạo: #991F37  |  Font: Roboto
+   ----------------------------------------------------------
+   Cách dùng: thêm vào <head> của trang HTML
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="style.css">
+   ========================================================== */
+
+/* ---------- 1. BIẾN MÀU & THÔNG SỐ (chỉnh tại đây) ---------- */
+:root {
+  /* Màu thương hiệu */
+  --primary: #991F37;
+  --primary-dark: #7A1829;
+  --primary-light: #B8324D;
+  --primary-soft: #F8E9EC;      /* nền nhạt cùng tông */
+
+  /* Màu trung tính (hơi ấm để hợp với tông đỏ rượu) */
+  --ink: #2A1E21;               /* chữ chính */
+  --ink-soft: #6B5A5E;          /* chữ phụ */
+  --line: #E8DEE0;              /* viền */
+  --bg: #FFFFFF;
+  --bg-alt: #FAF6F6;            /* nền xen kẽ các section */
+  --white: #FFFFFF;
+
+  /* Màu trạng thái */
+  --success: #2E7D4F;
+  --warning: #C9821A;
+  --danger: #C62828;
+
+  /* Typography */
+  --font: 'Roboto', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  --fs-xs: 0.8125rem;
+  --fs-sm: 0.9375rem;
+  --fs-base: 1rem;
+  --fs-lg: 1.125rem;
+  --fs-xl: 1.5rem;
+  --fs-2xl: clamp(1.75rem, 3vw, 2.25rem);
+  --fs-3xl: clamp(2.25rem, 5vw, 3.5rem);
+
+  /* Bố cục */
+  --container: 1200px;
+  --gutter: 20px;
+  --section-y: clamp(48px, 7vw, 96px);
+
+  /* Bo góc, đổ bóng, chuyển động */
+  --radius-sm: 4px;
+  --radius: 8px;
+  --radius-lg: 14px;
+  --shadow-sm: 0 1px 3px rgba(42, 30, 33, 0.08);
+  --shadow: 0 6px 20px rgba(42, 30, 33, 0.10);
+  --shadow-lg: 0 14px 40px rgba(153, 31, 55, 0.18);
+  --ease: 0.2s ease;
+}
+
+/* ---------- 2. RESET & NỀN TẢNG ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: var(--fs-base);
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+img, video, svg { max-width: 100%; height: auto; display: block; }
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color var(--ease);
+}
+a:hover { color: var(--primary-dark); }
+
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+h1, h2, h3, h4 {
+  margin: 0 0 0.5em;
+  line-height: 1.2;
+  font-weight: 700;
+  color: var(--ink);
+}
+h1 { font-size: var(--fs-3xl); font-weight: 900; letter-spacing: -0.01em; }
+h2 { font-size: var(--fs-2xl); }
+h3 { font-size: var(--fs-xl); }
+h4 { font-size: var(--fs-lg); }
+p  { margin: 0 0 1em; max-width: 70ch; }
+
+:focus-visible {
+  outline: 3px solid var(--primary-light);
+  outline-offset: 2px;
+}
+
+::selection { background: var(--primary); color: var(--white); }
+
+/* ---------- 3. TIỆN ÍCH BỐ CỤC ---------- */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section { padding-block: var(--section-y); }
+.section--alt { background: var(--bg-alt); }
+.section--primary { background: var(--primary); color: var(--white); }
+.section--primary h2,
+.section--primary h3 { color: var(--white); }
+
+.section__head {
+  max-width: 640px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+.section__head p { margin-inline: auto; color: var(--ink-soft); }
+
+.grid { display: grid; gap: 24px; }
+.grid--2 { grid-template-columns: repeat(2, 1fr); }
+.grid--3 { grid-template-columns: repeat(3, 1fr); }
+.grid--4 { grid-template-columns: repeat(4, 1fr); }
+
+.flex { display: flex; gap: 16px; align-items: center; }
+.text-center { text-align: center; }
+.text-primary { color: var(--primary); }
+
+/* ---------- 4. NÚT BẤM ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 28px;
+  font-family: inherit;
+  font-size: var(--fs-base);
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--white);
+  background: var(--primary);
+  border: 2px solid var(--primary);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background var(--ease), border-color var(--ease),
+              color var(--ease), transform var(--ease), box-shadow var(--ease);
+}
+.btn:hover {
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
+  color: var(--white);
+  box-shadow: var(--shadow-lg);
+}
+.btn:active { transform: translateY(1px); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
+
+.btn--outline { background: transparent; color: var(--primary); }
+.btn--outline:hover { background: var(--primary); color: var(--white); }
+
+.btn--light { background: var(--white); border-color: var(--white); color: var(--primary); }
+.btn--light:hover { background: var(--primary-soft); border-color: var(--primary-soft); color: var(--primary-dark); }
+
+.btn--lg { padding: 16px 36px; font-size: var(--fs-lg); }
+.btn--sm { padding: 8px 16px; font-size: var(--fs-sm); }
+.btn--block { display: flex; width: 100%; }
+
+/* ---------- 5. HEADER & ĐIỀU HƯỚNG ---------- */
+.topbar {
+  background: var(--primary-dark);
+  color: var(--white);
+  font-size: var(--fs-xs);
+  padding-block: 8px;
+  text-align: center;
+}
+.topbar a { color: var(--white); text-decoration: underline; }
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+}
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  min-height: 72px;
+}
+.nav {
+    display: flex;
+    gap: 25px;
+}
+.logo {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--primary);
+  letter-spacing: -0.02em;
+}
+
+.nav { display: flex; gap: 28px; }
+.nav a {
+  position: relative;
+  padding-block: 8px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.nav a::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 0; height: 2px;
+  background: var(--primary);
+  transition: width var(--ease);
+}
+.nav a:hover,
+.nav a.active { color: var(--primary); }
+.nav a:hover::after,
+.nav a.active::after { width: 100%; }
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: 0;
+  padding: 8px;
+  font-size: 1.5rem;
+  color: var(--primary);
+  cursor: pointer;
+}
+
+/* ---------- 6. HERO ---------- */
+.hero {
+  background: linear-gradient(135deg, var(--primary-soft) 0%, var(--white) 60%);
+  padding-block: clamp(56px, 9vw, 120px);
+}
+.hero__inner {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 48px;
+  align-items: center;
+}
+.hero h1 span { color: var(--primary); }
+.hero__lead { font-size: var(--fs-lg); color: var(--ink-soft); }
+.hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.hero__img { border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); }
+
+/* ---------- 7. THẺ SẢN PHẨM ---------- */
+.product {
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: box-shadow var(--ease), border-color var(--ease);
+}
+.product:hover { box-shadow: var(--shadow); border-color: var(--primary-light); }
+
+.product__thumb {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: var(--bg-alt);
+  overflow: hidden;
+}
+.product__thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+.product__badge {
+  position: absolute;
+  top: 12px; left: 12px;
+  padding: 4px 10px;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--white);
+  background: var(--primary);
+  border-radius: var(--radius-sm);
+}
+
+.product__body { display: flex; flex-direction: column; flex: 1; padding: 18px; }
+.product__title { font-size: var(--fs-lg); margin-bottom: 6px; }
+.product__meta { font-size: var(--fs-sm); color: var(--ink-soft); margin-bottom: 12px; }
+.product__price { font-size: var(--fs-xl); font-weight: 700; color: var(--primary); }
+.product__price del { margin-left: 8px; font-size: var(--fs-sm); font-weight: 400; color: var(--ink-soft); }
+.product__footer { margin-top: auto; padding-top: 14px; }
+
+/* ---------- 8. TRÌNH THIẾT KẾ / XEM TRƯỚC SẢN PHẨM IN ---------- */
+.designer {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 32px;
+  align-items: start;
+}
+.designer__preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 420px;
+  padding: 24px;
+  background: var(--bg-alt);
+  border: 2px dashed var(--line);
+  border-radius: var(--radius-lg);
+}
+.designer__panel {
+  padding: 24px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Chọn màu khăn */
+.swatches { display: flex; flex-wrap: wrap; gap: 10px; }
+.swatch {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  border: 2px solid var(--white);
+  box-shadow: 0 0 0 1px var(--line);
+  cursor: pointer;
+  transition: transform var(--ease), box-shadow var(--ease);
+}
+.swatch:hover { transform: scale(1.1); }
+.swatch.active { box-shadow: 0 0 0 3px var(--primary); }
+
+/* Chọn kích thước / chất liệu */
+.option-group { display: flex; flex-wrap: wrap; gap: 8px; }
+.option {
+  padding: 8px 16px;
+  font-size: var(--fs-sm);
+  color: var(--ink);
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--ease);
+}
+.option:hover { border-color: var(--primary); }
+.option.active {
+  color: var(--white);
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+/* ---------- 9. FORM ---------- */
+.form-group { margin-bottom: 18px; }
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+select,
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  font-family: inherit;
+  font-size: var(--fs-base);
+  color: var(--ink);
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  transition: border-color var(--ease), box-shadow var(--ease);
+}
+textarea { min-height: 120px; resize: vertical; }
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(153, 31, 55, 0.15);
+}
+input.error, textarea.error { border-color: var(--danger); }
+.form-error { margin-top: 4px; font-size: var(--fs-xs); color: var(--danger); }
+
+input[type="checkbox"],
+input[type="radio"] { accent-color: var(--primary); }
+
+/* Ô tải file thiết kế lên */
+.upload {
+  padding: 32px 16px;
+  text-align: center;
+  color: var(--ink-soft);
+  background: var(--primary-soft);
+  border: 2px dashed var(--primary-light);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: background var(--ease);
+}
+.upload:hover { background: #F3DCE1; }
+
+/* ---------- 10. BẢNG GIÁ ---------- */
+.price-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+}
+.price-table th,
+.price-table td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+}
+.price-table thead th { color: var(--white); background: var(--primary); font-weight: 500; }
+.price-table tbody tr:nth-child(even) { background: var(--bg-alt); }
+.price-table tbody tr:hover { background: var(--primary-soft); }
+
+/* ---------- 11. ƯU ĐIỂM / QUY TRÌNH ---------- */
+.feature {
+  padding: 28px 24px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+.feature__icon {
+  display: grid;
+  place-items: center;
+  width: 52px; height: 52px;
+  margin-bottom: 16px;
+  font-size: 1.5rem;
+  color: var(--primary);
+  background: var(--primary-soft);
+  border-radius: var(--radius);
+}
+
+.steps { counter-reset: step; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.step { position: relative; padding-top: 56px; }
+.step::before {
+  counter-increment: step;
+  content: counter(step);
+  position: absolute;
+  top: 0; left: 0;
+  display: grid;
+  place-items: center;
+  width: 40px; height: 40px;
+  font-weight: 700;
+  color: var(--white);
+  background: var(--primary);
+  border-radius: 50%;
+}
+
+/* ---------- 12. CTA & FOOTER ---------- */
+.cta { text-align: center; }
+.cta p { margin-inline: auto; opacity: 0.9; }
+
+.footer {
+  padding-top: 64px;
+  color: #E9DADD;
+  background: #2A1E21;
+  font-size: var(--fs-sm);
+}
+.footer__grid {
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+  gap: 32px;
+  padding-bottom: 40px;
+}
+.footer h4 { color: var(--white); margin-bottom: 14px; }
+.footer a { color: #E9DADD; }
+.footer a:hover { color: var(--white); text-decoration: underline; }
+.footer li { margin-bottom: 8px; }
+.footer__bottom {
+  padding-block: 20px;
+  text-align: center;
+  font-size: var(--fs-xs);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* ---------- 13. THÀNH PHẦN PHỤ ---------- */
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  color: var(--primary);
+  background: var(--primary-soft);
+  border-radius: 999px;
+}
+
+.alert {
+  padding: 14px 18px;
+  border-left: 4px solid var(--primary);
+  background: var(--primary-soft);
+  border-radius: var(--radius-sm);
+}
+.alert--success { border-color: var(--success); background: #E8F4EC; }
+.alert--danger  { border-color: var(--danger);  background: #FBEAEA; }
+
+.breadcrumb { display: flex; gap: 8px; font-size: var(--fs-sm); color: var(--ink-soft); }
+.breadcrumb li + li::before { content: '/'; margin-right: 8px; }
+
+.pagination { display: flex; justify-content: center; gap: 6px; }
+.pagination a {
+  display: grid;
+  place-items: center;
+  min-width: 40px; height: 40px;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.pagination a:hover,
+.pagination a.active { color: var(--white); background: var(--primary); border-color: var(--primary); }
+
+/* Nút liên hệ nổi (Zalo / hotline) */
+.float-contact {
+  position: fixed;
+  right: 18px; bottom: 18px;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.float-contact a {
+  display: grid;
+  place-items: center;
+  width: 52px; height: 52px;
+  color: var(--white);
+  background: var(--primary);
+  border-radius: 50%;
+  box-shadow: var(--shadow-lg);
+  transition: transform var(--ease);
+}
+.float-contact a:hover { transform: scale(1.08); color: var(--white); }
+
+/* ---------- 14. RESPONSIVE ---------- */
+@media (max-width: 992px) {
+  .grid--4 { grid-template-columns: repeat(2, 1fr); }
+  .grid--3 { grid-template-columns: repeat(2, 1fr); }
+  .hero__inner,
+  .designer { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: repeat(2, 1fr); }
+  .footer__grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .nav-toggle { display: block; }
+  .nav {
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    padding: 8px var(--gutter) 16px;
+    background: var(--white);
+    border-bottom: 1px solid var(--line);
+    box-shadow: var(--shadow);
+  }
+  .nav.open { display: flex; }
+  .nav a { padding-block: 12px; border-bottom: 1px solid var(--line); }
+  .nav a::after { display: none; }
+}
+
+/* Giữ lại menu đối với kích thước 768px */
+@media (min-width: 577px) and (max-width: 768px) {
+  .nav-toggle {
+    display: none;
+  }
+
+  .header__inner {
+    gap: 16px;
+  }
+
+  .nav {
+    position: static;
+    display: flex;
+    flex-direction: row;
+    gap: 14px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    flex-shrink: 0;
+  }
+
+  .nav a {
+    padding-block: 8px;
+    border-bottom: none;
+    white-space: nowrap;
+  }
+
+  .nav a::after {
+    display: block;
+  }
+
+  .header__icons {
+    gap: 12px;
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 576px) {
+  :root { --gutter: 16px; }
+  .grid--2, .grid--3, .grid--4,
+  .steps, .footer__grid { grid-template-columns: 1fr; }
+  .hero__actions .btn { width: 100%; }
+  .price-table { display: block; overflow-x: auto; }
+}
+
+/* Giữ lại menu đối với kích thước 390px */
+@media (max-width: 576px) {
+  .header__inner {
+    gap: 8px;
+  }
+
+  .logo img {
+    max-width: 65px;
+    height: auto;
+  }
+
+  .nav {
+    position: static;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    flex-shrink: 1;
+  }
+
+  .nav a {
+    font-size: 12px;
+    padding: 6px 0;
+    white-space: nowrap;
+    border-bottom: none;
+  }
+
+  .nav a::after {
+    display: block;
+  }
+
+  .header__icons {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .header__icon svg {
+    width: 19px;
+    height: 19px;
+  }
+}
+
+/* ---------- 15. TRUY CẬP & IN ẤN ---------- */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+@media print {
+  .header, .topbar, .footer, .float-contact { display: none; }
+  body { color: #000; }
+}
+
+/* PRODUCT DETAIL - PROMPT 6A */
+
+.pd-page {
+  padding: 32px 20px 64px;
+  color: inherit;
+}
+
+.pd-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.pd-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+  font-size: 14px;
+}
+
+.pd-breadcrumb a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.pd-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 40px;
+  align-items: start;
+}
+
+.pd-media {
+  margin: 0;
+  min-width: 0;
+}
+
+.pd-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.pd-media figcaption,
+.pd-note {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #666;
+}
+
+.pd-info {
+  min-width: 0;
+}
+
+.pd-category {
+  font-size: 13px;
+  letter-spacing: 2px;
+}
+
+.pd-info h1 {
+  margin: 12px 0;
+  font-size: clamp(24px, 3vw, 36px);
+  line-height: 1.25;
+}
+
+.pd-price {
+  margin: 20px 0;
+  font-size: 22px;
+}
+
+.pd-price strong {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.pd-description {
+  line-height: 1.7;
+}
+
+.pd-info h2 {
+  margin: 24px 0 12px;
+  font-size: 18px;
+}
+
+.pd-specs {
+  display: grid;
+  grid-template-columns: 130px minmax(0, 1fr);
+  gap: 12px;
+  margin: 0 0 28px;
+}
+
+.pd-specs dt {
+  font-weight: 600;
+}
+
+.pd-specs dd {
+  margin: 0;
+}
+
+
+.pd-buy-button {
+  min-height: 48px;
+  padding: 12px 28px;
+  border: 2px solid var(--primary);
+  border-radius: var(--radius);
+  background: var(--primary);
+  color: var(--white);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color var(--ease),
+              border-color var(--ease),
+              box-shadow var(--ease);
+}
+
+
+.pd-buy-button:hover {
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
+  box-shadow: var(--shadow);
+}
+
+
+.pd-buy-button:focus-visible,
+.pd-breadcrumb a:focus-visible {
+  outline: 3px solid var(--primary-dark);
+  outline-offset: 3px;
+}
+
+/* Tablet và điện thoại */
+@media (max-width: 768px) {
+  .pd-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .pd-page {
+    padding: 20px 16px 40px;
+  }
+
+  .pd-buy-button {
+    width: 100%;
+  }
+}
+
+/* Điện thoại nhỏ */
+@media (max-width: 390px) {
+  .pd-specs {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}
+
+/* ========================================
+   ĐIỀU CHỈNH GIAO DIỆN TRANG CHỦ
+   ICHIGO PRINTING
+   ======================================== */
+
+/* 1. LOGO */
+.logo img {
+    display: block;
+    width: 380px;
+    height: 190px;
+    object-fit: contain;
+}
+
+/* 2. HEADER ICONS */
+.header__icons {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.header__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink);
+    transition: color var(--ease);
+}
+
+.header__icon:hover {
+    color: var(--primary);
+}
+
+/* 3. BANNER */
+.hero__inner {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 40px;
+  }
+
+.hero__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+}
+
+.hero__eyebrow {
+    margin-bottom: 12px;
+    color: var(--primary);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.hero__content h1 {
+    margin-bottom: 18px;
+}
+
+.hero__content h1 span {
+    display: block;
+    color: var(--primary);
+}
+
+.hero__lead {
+    font-size: var(--fs-lg);
+    color: var(--ink-soft);
+}
+
+/* 4. NÚT KHÁM PHÁ SẢN PHẨM */
+.hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.hero__actions .btn {
+    color: var(--white);
+    background: var(--primary);
+    border: 2px solid var(--primary);
+    border-radius: var(--radius);
+    padding: 16px 36px;
+    font-weight: 700;
+}
+
+.hero__actions .btn:hover {
+    color: var(--white);
+    background: var(--primary-dark);
+    border-color: var(--primary-dark);
+}
+
+/* 5. HÌNH ẢNH BANNER */
+.hero__img {
+    width: 100%;
+    height: 380px;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+}
+
+.hero__img img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* 6. HÌNH ẢNH SẢN PHẨM */
+.product__thumb {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: var(--bg-alt);
+}
+
+.product__thumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform var(--ease);
+}
+
+.product:hover .product__thumb img {
+    transform: scale(1.04);
+}
+
+/* 7. DANH MỤC SẢN PHẨM */
+.category-card {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    padding: 20px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+}
+
+.category-card__image {
+    flex: 0 0 42%;
+    overflow: hidden;
+    border-radius: var(--radius);
+}
+
+.category-card__image img {
+    display: block;
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+}
+
+.category-card__content {
+    flex: 1;
+}
+
+.category-card__content h3 {
+    margin-bottom: 10px;
+    color: var(--primary);
+}
+
+.category-card__content p {
+    margin-bottom: 15px;
+    color: var(--ink-soft);
+}
+
+/* 8. GIỚI THIỆU DỊCH VỤ */
+.intro-service {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 28px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+}
+
+.intro-service__content {
+    flex: 1;
+}
+
+.intro-service__content h3 {
+    margin-bottom: 15px;
+}
+
+.intro-service__content p {
+    margin-bottom: 12px;
+    color: var(--ink-soft);
+}
+
+.intro-service__content .btn {
+    margin-top: 10px;
+}
+
+.intro-service__image {
+    flex: 0 0 38%;
+    overflow: hidden;
+    border-radius: var(--radius);
+}
+
+.intro-service__image img {
+    display: block;
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+}
+
+/* 9. HIỆU ỨNG MENU VÀ LIÊN KẾT */
+.nav a,
+.footer a {
+    transition: color var(--ease);
+}
+
+.nav a:hover {
+    color: var(--primary);
+}
+
+/* 10. RESPONSIVE TABLET */
+@media (max-width: 992px) and (min-width: 769px) {
+    .hero__inner {
+        grid-template-columns: 1fr 0.9fr;
+        gap: 24px;
+    }
+
+    .hero__img {
+        height: 300px;
+    }
+
+    .logo img {
+        width: 160px;
+    }
+}
+
+/* 11. RESPONSIVE MOBILE */
+@media (max-width: 768px) {
+    .logo img {
+        width: 145px;
+        height: 65px;
+    }
+
+    .header__icons {
+        gap: 14px;
+    }
+
+    .hero__inner {
+        grid-template-columns: 1fr;
+    }
+
+    .hero__img {
+        height: 280px;
+    }
+
+    .category-card,
+    .intro-service {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .category-card__image,
+    .intro-service__image {
+        flex: 1;
+        width: 100%;
+    }
+
+    .category-card__image img,
+    .intro-service__image img {
+        height: 220px;
+    }
+}
+
+/* 12. RESPONSIVE ĐIỆN THOẠI NHỎ */
+@media (max-width: 576px) {
+    .hero__img {
+        height: 220px;
+    }
+
+    .hero__actions .btn {
+        width: 100%;
+    }
+
+    .product__thumb {
+        aspect-ratio: 1 / 1;
+    }
+
+    .category-card,
+    .intro-service {
+        padding: 18px;
+    }
+}
+
+/* TƯƠNG TÁC - PROMPT 8 */
+
+.btn:focus-visible {
+  outline: 3px solid var(--primary-dark);
+  outline-offset: 3px;
+}
+
+.btn:active {
+  transform: none;
+}
+
+.nav a:focus-visible {
+  color: var(--primary);
+  outline-offset: 4px;
+  border-radius: var(--radius-sm);
+}
+
+.nav a:focus-visible::after {
+  width: 100%;
+}
+
+.logo:focus-visible {
+  outline-offset: 4px;
+  border-radius: var(--radius-sm);
+}
+
+.header__icon {
+  border-radius: 50%;
+  transition: color var(--ease), box-shadow var(--ease);
+}
+
+.header__icon:focus-visible {
+  color: var(--primary);
+  outline-offset: 6px;
+}
+
+@media (hover: hover) {
+  .header__icon:hover {
+    box-shadow: 0 0 0 6px var(--primary-soft);
+  }
+}
+
+.product:focus-within {
+  border-color: var(--primary-light);
+  box-shadow: var(--shadow);
+}
+
+.product__thumb:focus-visible {
+  outline: 3px solid var(--primary-dark);
+  outline-offset: -3px;
+}
+
+.product__thumb:focus-visible::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border: 3px solid var(--primary-dark);
+  box-shadow: inset 0 0 0 3px var(--white);
+  pointer-events: none;
+}
+
+.footer a:focus-visible {
+  color: var(--white);
+  outline: 3px solid var(--white);
+  outline-offset: 3px;
+  border-radius: 2px;
+  text-decoration: underline;
+}
+```
+
+### js/module/cart-list.js
+```javascript
+(function () {
+    // Đồng bộ nội dung các nút với dữ liệu giỏ hàng hiện tại.
+    function updateCartButtons() {
+        if (!window.Cart) return;
+
+        const cart = window.Cart.getCart();
+        const buttons = document.querySelectorAll("#product-list .cart-add-btn");
+
+        buttons.forEach(function (button) {
+            const item = cart.find(function (entry) {
+                return String(entry.productId) === button.dataset.productId;
+            });
+            const quantity = item ? Number(item.quantity) : 0;
+
+            button.textContent = quantity > 0
+                ? `CÓ ${quantity} TRONG GIỎ HÀNG`
+                : "THÊM VÀO GIỎ HÀNG";
+            button.classList.toggle("is-added", quantity > 0);
+        });
+    }
+
+    // Gắn nút cho các thẻ vừa được render, kể cả sau khi tìm kiếm hoặc lọc.
+    function initProductCartButtons() {
+        if (typeof products === "undefined" || !Array.isArray(products)) {
+            console.error("Không tải được products.js");
+            return;
+        }
+
+        if (!window.Cart) return;
+
+        const cards = document.querySelectorAll("#product-list .product");
+
+        cards.forEach(function (card) {
+            const product = products.find(function (entry) {
+                return String(entry.id) === card.dataset.productId;
+            });
+
+            if (!product) return;
+
+            card.querySelectorAll('a[href*="product-detail.html"]').forEach(function (link) {
+                link.href = `product-detail.html?id=${product.id}`;
+            });
+
+            const footer = card.querySelector(".product__footer");
+            if (!footer) return;
+
+            footer.classList.add("cart-actions");
+
+            let button = footer.querySelector(".cart-add-btn");
+            if (!button) {
+                button = document.createElement("button");
+                button.type = "button";
+                button.className = "btn cart-add-btn";
+                footer.prepend(button);
+            }
+
+            button.dataset.productId = String(product.id);
+
+            if (!button.dataset.cartBound) {
+                button.addEventListener("click", function () {
+                    if (window.Cart.addToCart(product.id, 1)) {
+                        updateCartButtons();
+                    }
+                });
+                button.dataset.cartBound = "true";
+            }
+        });
+
+        updateCartButtons();
+    }
+
+    document.addEventListener("products:rendered", initProductCartButtons);
+    window.addEventListener("pageshow", updateCartButtons);
+    window.addEventListener("storage", updateCartButtons);
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initProductCartButtons);
+    } else {
+        initProductCartButtons();
+    }
+})();
+```
+</details>
+
+### Phản hồi Claude – nội dung đầy đủ
+
+<details>
+<summary>Mở toàn bộ phản hồi Claude</summary>
+
+Bổ sung lọc khoảng giá, kiểm tra nhập liệu và nút "Đặt lại bộ lọc" vào `product.html`, sửa 2 file, tạo 1 file CSS mới, giữ nguyên `renderProducts(list)` và các module giỏ hàng.
+
+## A. Cách ghép vào mã hiện tại
+
+### Phạm vi thay đổi
+
+| File | Hành động |
+|---|---|
+| `ecommerce-project/product.html` | Thay file: dựng lại form thành 2 hàng, bỏ inline style của form và dòng trạng thái, thêm link CSS mới trước `header.css` |
+| `js/module/search-filter.js` | Thay file: giữ nguyên `renderProducts`, thêm hàm khoảng giá, kiểm tra nhập liệu và đặt lại |
+| `css/product-filter.css` | Tạo mới |
+| `products.js`, `cart.js`, `cart-list.js`, `style.css`, `header.css`, `cart.css` | Không đổi (`cart.js`, `header.css`, `cart.css` bạn không đính kèm nên tôi không kiểm tra được) |
+
+### Luồng xử lý
+
+- Mọi điều khiển (từ khóa, danh mục, sắp xếp, giá từ, giá đến) đều gọi một hàm `applyFilters()`.
+- `applyFilters()` đọc giá trị hai ô giá và gọi `validatePriceRange()` trước.
+  - **Sai:** hiển thị lỗi, gắn `aria-invalid` và `aria-describedby`, rồi gọi `renderInvalidState()`. Hàm này xóa thẻ, hiện thông báo yêu cầu nhập khoảng giá hợp lệ và vẫn phát sự kiện `products:rendered`.
+  - **Đúng:** xóa lỗi, chạy chuỗi `searchByName` → `filterByCategory` → `filterByPriceRange` → `sortByPrice`, rồi gọi `renderProducts(kết quả)`.
+- Mỗi hàm lọc trả về mảng mới. Sắp xếp chạy trên bản sao, nên `products` gốc không bị đổi.
+
+### Quyết định kỹ thuật
+
+| Vấn đề | Cách xử lý | Lý do |
+|---|---|---|
+| `validity.badInput` | Kiểm tra trước giá trị. Nếu `true` thì coi là lỗi, không coi là ô trống | `input.value` trả về `""` khi nhập sai trong `type="number"`, dễ bị nhầm với "không giới hạn" |
+| Định dạng số | Dùng regex `^\d+$` trên chuỗi, rồi `Number.isSafeInteger` | Loại âm, thập phân, ký hiệu mũ (`1e3`) và số quá lớn. Hệ quả: `1e3` bị báo lỗi dù trình duyệt coi là 1000 |
+| Validation của form | Form có `novalidate`. Mỗi ô lỗi được gắn `setCustomValidity(message)`, hợp lệ thì xóa | Tránh hộp thoại native chồng lên thông báo tùy chỉnh. `form.checkValidity()` vẫn khớp với trạng thái hiển thị |
+| Thông báo lỗi nhập liệu | Đặt trong lưới sản phẩm bằng `renderInvalidState()`; dòng đếm kết quả để trống | Tránh dùng "Không có sản phẩm phù hợp" cho lỗi. `price-error` (`role="alert"`) đã báo cho trình đọc màn hình, nên không lặp lại ở vùng `role="status"` |
+| Option danh mục | Cờ `dataset.populated` trên `<select>` | Không tạo trùng option nếu hàm bị gọi lại |
+| Nút giỏ hàng | Không sửa `cart-list.js` | Thẻ được dựng lại mỗi lần lọc nên nút mới được gắn một lần cho mỗi thẻ. Trạng thái bắt đầu từ `Cart.getCart()` nên không bị trùng |
+
+### Thứ tự nạp script
+
+`search-filter.js` chạy trước `cart.js` và `cart-list.js`, nên lần `products:rendered` đầu tiên phát ra khi `cart-list.js` chưa lắng nghe. Điều này vẫn ổn nếu `cart-list.js` tự khởi tạo khi nạp (đoạn `document.readyState` trong file bạn gửi có làm việc đó). Đây là suy luận từ mã đọc được, **chưa chạy xác nhận**.
+
+## B. `ecommerce-project/product.html`
+
+```html
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Khám phá các sản phẩm K-pop goods cá nhân hóa tại Ichigo Printing.">
+    <title>Ichigo Printing | Sản phẩm</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/cart.css">
+
+    <script src="../js/data/products.js" defer></script>
+    <script src="../js/module/search-filter.js" defer></script>
+    <script src="../js/module/cart.js" defer></script>
+    <script src="../js/module/cart-list.js" defer></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/product-filter.css">
+  <link rel="stylesheet" href="../css/header.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+<header class="header site-header">
+  <div class="container header__inner">
+    <a class="logo" href="index.html" aria-label="Ichigo Printing - Trang chủ">
+      <img src="../images/logo.png" alt="Ichigo Printing" width="2000" height="2000">
+    </a>
+    <nav class="nav" aria-label="Điều hướng chính">
+      <a href="index.html">Trang chủ</a>
+      <a href="product.html" class="active" aria-current="page">Sản phẩm</a>
+      <a href="about.html">Giới thiệu</a>
+    </nav>
+    <div class="header__icons">
+      <a href="product.html" class="header__icon" aria-label="Tìm kiếm sản phẩm">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <line x1="16" y1="16" x2="21" y2="21"></line>
+        </svg>
+      </a>
+      <a href="cart.html" class="header__icon cart-header-link" aria-label="Giỏ hàng">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 3h2l2.4 12.2a2 2 0 0 0 2 1.6h8.8a2 2 0 0 0 2-1.6L22 7H6"></path>
+          <circle cx="10" cy="21" r="1"></circle>
+          <circle cx="19" cy="21" r="1"></circle>
+        </svg>
+        <span class="cart-badge" data-cart-count hidden>0</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+    <main>
+
+        <!-- PAGE INTRODUCTION -->
+        <section class="section section--alt">
+            <div class="container">
+                <div class="section__head">
+                    <p class="text-primary"><strong>ICHIGO PRINTING</strong></p>
+                    <h1>Our Products</h1>
+                    <p>
+                        Khám phá bộ sưu tập K-pop goods được thiết kế
+                        và cá nhân hóa theo phong cách riêng của bạn.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRODUCT LIST -->
+        <section class="section">
+            <div class="container">
+
+                <div class="section__head">
+                    <h2>Danh sách sản phẩm</h2>
+                    <p>
+                        Các mẫu sản phẩm in ấn dành cho cộng đồng người hâm mộ K-pop.
+                    </p>
+                </div>
+
+                <!-- SEARCH / FILTER / SORT -->
+                <form id="filter-form" role="search" novalidate
+                      aria-label="Tìm kiếm, lọc và sắp xếp sản phẩm">
+
+                    <!-- Hàng 1: từ khóa, danh mục, sắp xếp -->
+                    <div class="filter-row filter-row--main">
+                        <div class="form-group filter-field filter-field--search">
+                            <label for="search-input">Tìm theo tên sản phẩm</label>
+                            <input type="text" id="search-input" name="keyword"
+                                   placeholder="Ví dụ: acrylic" autocomplete="off">
+                        </div>
+
+                        <div class="form-group filter-field filter-field--select">
+                            <label for="category-select">Danh mục</label>
+                            <select id="category-select" name="category">
+                                <option value="all">Tất cả danh mục</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group filter-field filter-field--select">
+                            <label for="sort-select">Sắp xếp theo giá</label>
+                            <select id="sort-select" name="sort">
+                                <option value="default">Mặc định</option>
+                                <option value="asc">Giá tăng dần</option>
+                                <option value="desc">Giá giảm dần</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Hàng 2: khoảng giá và nút đặt lại -->
+                    <div class="filter-row filter-row--price">
+                        <div class="filter-price" role="group" aria-label="Khoảng giá">
+                            <div class="form-group filter-field">
+                                <label for="min-price">Giá từ (đ)</label>
+                                <input type="number" id="min-price" name="minPrice"
+                                       min="0" step="1" inputmode="numeric"
+                                       placeholder="0" autocomplete="off">
+                            </div>
+
+                            <div class="form-group filter-field">
+                                <label for="max-price">Giá đến (đ)</label>
+                                <input type="number" id="max-price" name="maxPrice"
+                                       min="0" step="1" inputmode="numeric"
+                                       placeholder="Không giới hạn" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="filter-actions">
+                            <button type="button" id="reset-filters" class="btn btn--outline">
+                                Đặt lại bộ lọc
+                            </button>
+                        </div>
+                    </div>
+
+                    <p id="price-error" class="filter-error" role="alert" hidden></p>
+                </form>
+
+                <p id="filter-status" role="status" aria-live="polite"></p>
+
+                <div class="grid grid--4" id="product-list"></div>
+
+                <!-- PRICE NOTE -->
+                <div class="alert" style="margin-top: 32px;">
+                    <strong>Lưu ý:</strong>
+                    Giá hiển thị là giá demo phục vụ mục đích minh họa giao diện.
+                    Giá thực tế có thể thay đổi tùy theo kích thước, chất liệu,
+                    số lượng và yêu cầu thiết kế.
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+
+                <div>
+                    <h3>ICHIGO PRINTING</h3>
+                    <p>In dấu những khoảnh khắc đặc biệt.</p>
+                </div>
+
+                <div>
+                    <h4>Liên kết</h4>
+                    <p><a href="index.html">Trang chủ</a></p>
+                    <p><a href="product.html">Sản phẩm</a></p>
+                    <p><a href="about.html">Giới thiệu</a></p>
+                </div>
+
+                <div>
+                    <h4>Theo dõi chúng tôi</h4>
+                    <p>Instagram | X | TikTok | YouTube</p>
+                </div>
+
+            </div>
+
+            <div class="footer__bottom">
+                <p>© 2026 Ichigo Printing. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
+```
+
+## C. `js/module/search-filter.js`
+
+```javascript
+// Hiển thị danh sách từ dữ liệu dùng chung, giữ các class CSS hiện có.
+function renderProducts(list) {
+    const productList = document.getElementById("product-list");
+    productList.replaceChildren();
+
+    if (list.length === 0) {
+        const message = document.createElement("p");
+        message.className = "alert";
+        message.style.gridColumn = "1 / -1";
+        message.textContent = "Không có sản phẩm phù hợp.";
+        productList.appendChild(message);
+        document.dispatchEvent(new Event("products:rendered"));
+        return;
+    }
+
+    const fragment = document.createDocumentFragment();
+
+    list.forEach(function (product) {
+        const card = document.createElement("article");
+        card.className = "product";
+        card.dataset.productId = String(product.id);
+        card.innerHTML = `
+            <a class="product__thumb">
+                <img alt="">
+                <span class="product__badge">Demo</span>
+            </a>
+            <div class="product__body">
+                <h3 class="product__title"></h3>
+                <p class="product__meta"></p>
+                <p class="product__price"></p>
+                <div class="product__footer">
+                    <a class="btn btn--outline btn--sm">Xem chi tiết</a>
+                </div>
+            </div>
+        `;
+
+        const detailUrl = `product-detail.html?id=${product.id}`;
+        const image = card.querySelector("img");
+        image.src = product.image;
+        image.alt = product.description;
+
+        card.querySelector(".product__thumb").href = detailUrl;
+        card.querySelector(".product__title").textContent = product.name;
+        card.querySelector(".product__meta").textContent = product.description;
+        card.querySelector(".product__price").textContent =
+            product.price.toLocaleString("vi-VN") + "đ";
+        card.querySelector(".product__footer a").href = detailUrl;
+
+        fragment.appendChild(card);
+    });
+
+    productList.appendChild(fragment);
+    document.dispatchEvent(new Event("products:rendered"));
+}
+
+// Khi khoảng giá không hợp lệ: xóa các thẻ, hiện thông báo yêu cầu nhập lại.
+// Không dùng thông báo "Không có sản phẩm phù hợp" cho lỗi nhập liệu.
+function renderInvalidState() {
+    const productList = document.getElementById("product-list");
+    productList.replaceChildren();
+
+    const message = document.createElement("p");
+    message.className = "alert";
+    message.style.gridColumn = "1 / -1";
+    message.textContent = "Vui lòng nhập khoảng giá hợp lệ để xem sản phẩm.";
+    productList.appendChild(message);
+
+    document.dispatchEvent(new Event("products:rendered"));
+}
+
+/* ==========================================================
+   TÌM KIẾM - LỌC DANH MỤC - LỌC KHOẢNG GIÁ - SẮP XẾP GIÁ
+   Mọi hàm xử lý trả về MẢNG MỚI, không thay đổi mảng `products`.
+   ========================================================== */
+
+const ALL_CATEGORIES = "all";
+const PRICE_PATTERN = /^\d+$/;
+
+// Lấy danh sách danh mục không trùng, theo thứ tự xuất hiện trong dữ liệu.
+function getCategories(list) {
+    return Array.from(new Set(list.map(function (product) {
+        return product.category;
+    })));
+}
+
+// Tìm theo tên, không phân biệt hoa/thường. Từ khóa rỗng trả về toàn bộ.
+function searchByName(list, keyword) {
+    const normalized = keyword.trim().toLowerCase();
+
+    if (normalized === "") {
+        return list.slice();
+    }
+
+    return list.filter(function (product) {
+        return product.name.toLowerCase().includes(normalized);
+    });
+}
+
+// Lọc theo danh mục. "all" trả về toàn bộ.
+function filterByCategory(list, category) {
+    if (category === ALL_CATEGORIES) {
+        return list.slice();
+    }
+
+    return list.filter(function (product) {
+        return product.category === category;
+    });
+}
+
+// Lọc theo khoảng giá, gồm cả hai mức biên. null/undefined = không giới hạn đầu đó.
+function filterByPriceRange(list, minPrice, maxPrice) {
+    const hasMin = minPrice !== null && minPrice !== undefined;
+    const hasMax = maxPrice !== null && maxPrice !== undefined;
+
+    return list.filter(function (product) {
+        if (hasMin && product.price < minPrice) return false;
+        if (hasMax && product.price > maxPrice) return false;
+        return true;
+    });
+}
+
+// Sắp xếp theo giá trên bản sao. "default" giữ nguyên thứ tự đầu vào.
+function sortByPrice(list, order) {
+    const sorted = list.slice();
+
+    if (order === "asc") {
+        sorted.sort(function (a, b) { return a.price - b.price; });
+    } else if (order === "desc") {
+        sorted.sort(function (a, b) { return b.price - a.price; });
+    }
+
+    return sorted;
+}
+
+// Kết hợp 4 điều kiện: tìm kiếm -> danh mục -> khoảng giá -> sắp xếp.
+function getVisibleProducts(source, criteria) {
+    const searched = searchByName(source, criteria.keyword);
+    const byCategory = filterByCategory(searched, criteria.category);
+    const byPrice = filterByPriceRange(byCategory, criteria.minPrice, criteria.maxPrice);
+    return sortByPrice(byPrice, criteria.sort);
+}
+
+/* ---------- Kiểm tra khoảng giá (không phụ thuộc DOM) ---------- */
+
+const MIN_PRICE_MESSAGE =
+    "Giá từ phải là số nguyên không âm, đơn vị đồng (không có chữ hoặc dấu thập phân).";
+const MAX_PRICE_MESSAGE =
+    "Giá đến phải là số nguyên không âm, đơn vị đồng (không có chữ hoặc dấu thập phân).";
+const RANGE_ORDER_MESSAGE = "Giá từ không được lớn hơn giá đến.";
+
+// Trả về { valid, value }. Ô trống hợp lệ với value = null (không giới hạn).
+// hasBadInput = true nghĩa là trình duyệt báo nhập sai: KHÔNG được coi là ô trống.
+function parsePriceValue(rawValue, hasBadInput) {
+    if (hasBadInput) {
+        return { valid: false, value: null };
+    }
+
+    const text = String(rawValue === null || rawValue === undefined ? "" : rawValue).trim();
+
+    if (text === "") {
+        return { valid: true, value: null };
+    }
+
+    if (!PRICE_PATTERN.test(text)) {
+        return { valid: false, value: null };
+    }
+
+    const number = Number(text);
+
+    if (!Number.isSafeInteger(number)) {
+        return { valid: false, value: null };
+    }
+
+    return { valid: true, value: number };
+}
+
+// raw = { min, max, minBadInput, maxBadInput }
+// Trả về { valid, min, max, errors: [{ fields: ["min"|"max"], message }] }
+function validatePriceRange(raw) {
+    const min = parsePriceValue(raw.min, raw.minBadInput);
+    const max = parsePriceValue(raw.max, raw.maxBadInput);
+    const errors = [];
+
+    if (!min.valid) {
+        errors.push({ fields: ["min"], message: MIN_PRICE_MESSAGE });
+    }
+
+    if (!max.valid) {
+        errors.push({ fields: ["max"], message: MAX_PRICE_MESSAGE });
+    }
+
+    if (min.valid && max.valid &&
+        min.value !== null && max.value !== null &&
+        min.value > max.value) {
+        errors.push({ fields: ["min", "max"], message: RANGE_ORDER_MESSAGE });
+    }
+
+    return {
+        valid: errors.length === 0,
+        min: min.value,
+        max: max.value,
+        errors: errors
+    };
+}
+
+/* ---------- Giao diện ---------- */
+
+function getFilterElements() {
+    return {
+        keyword: document.getElementById("search-input"),
+        category: document.getElementById("category-select"),
+        sort: document.getElementById("sort-select"),
+        minPrice: document.getElementById("min-price"),
+        maxPrice: document.getElementById("max-price"),
+        priceError: document.getElementById("price-error"),
+        reset: document.getElementById("reset-filters"),
+        form: document.getElementById("filter-form"),
+        status: document.getElementById("filter-status")
+    };
+}
+
+// Chỉ thêm option một lần, tránh trùng nếu hàm bị gọi lại.
+function populateCategoryOptions(select, list) {
+    if (select.dataset.populated === "true") {
+        return;
+    }
+
+    getCategories(list).forEach(function (category) {
+        const option = document.createElement("option");
+        option.value = category;
+        option.textContent = category;
+        select.appendChild(option);
+    });
+
+    select.dataset.populated = "true";
+}
+
+function updateStatus(statusElement, visibleCount, totalCount) {
+    statusElement.textContent =
+        "Hiển thị " + visibleCount + " / " + totalCount + " sản phẩm.";
+}
+
+function hasBadInput(input) {
+    return Boolean(input.validity && input.validity.badInput);
+}
+
+function readPriceInputs(elements) {
+    return {
+        min: elements.minPrice.value,
+        max: elements.maxPrice.value,
+        minBadInput: hasBadInput(elements.minPrice),
+        maxBadInput: hasBadInput(elements.maxPrice)
+    };
+}
+
+function findErrorMessage(errors, field) {
+    const found = errors.find(function (error) {
+        return error.fields.indexOf(field) !== -1;
+    });
+    return found ? found.message : "";
+}
+
+// Đồng bộ lỗi với giao diện: aria-invalid, aria-describedby, setCustomValidity, #price-error.
+function showPriceErrors(elements, result) {
+    const inputs = [
+        { field: "min", input: elements.minPrice },
+        { field: "max", input: elements.maxPrice }
+    ];
+
+    inputs.forEach(function (item) {
+        const message = findErrorMessage(result.errors, item.field);
+
+        if (message) {
+            item.input.setAttribute("aria-invalid", "true");
+            item.input.setAttribute("aria-describedby", "price-error");
+            item.input.setCustomValidity(message);
+        } else {
+            item.input.removeAttribute("aria-invalid");
+            item.input.removeAttribute("aria-describedby");
+            item.input.setCustomValidity("");
+        }
+    });
+
+    if (result.errors.length === 0) {
+        elements.priceError.textContent = "";
+        elements.priceError.hidden = true;
+        return;
+    }
+
+    const uniqueMessages = Array.from(new Set(result.errors.map(function (error) {
+        return error.message;
+    })));
+
+    elements.priceError.textContent = uniqueMessages.join(" ");
+    elements.priceError.hidden = false;
+}
+
+// Đọc điều khiển -> kiểm tra giá -> tính kết quả -> cập nhật giao diện.
+function applyFilters() {
+    const elements = getFilterElements();
+    const price = validatePriceRange(readPriceInputs(elements));
+
+    showPriceErrors(elements, price);
+
+    if (!price.valid) {
+        renderInvalidState();
+        elements.status.textContent = "";
+        return;
+    }
+
+    const result = getVisibleProducts(products, {
+        keyword: elements.keyword.value,
+        category: elements.category.value,
+        sort: elements.sort.value,
+        minPrice: price.min,
+        maxPrice: price.max
+    });
+
+    renderProducts(result);
+    updateStatus(elements.status, result.length, products.length);
+}
+
+// Đưa mọi điều khiển về mặc định. Không đụng tới dữ liệu giỏ hàng.
+function resetFilters() {
+    const elements = getFilterElements();
+
+    elements.keyword.value = "";
+    elements.category.value = ALL_CATEGORIES;
+    elements.sort.value = "default";
+    elements.minPrice.value = "";
+    elements.maxPrice.value = "";
+
+    applyFilters();
+    elements.keyword.focus();
+}
+
+function initSearchFilter() {
+    const elements = getFilterElements();
+
+    // Nếu thiếu thành phần giao diện, vẫn hiển thị danh sách như trước.
+    if (!elements.keyword || !elements.category || !elements.sort ||
+        !elements.minPrice || !elements.maxPrice || !elements.priceError ||
+        !elements.reset || !elements.form || !elements.status) {
+        renderProducts(products);
+        return;
+    }
+
+    populateCategoryOptions(elements.category, products);
+
+    elements.keyword.addEventListener("input", applyFilters);
+    elements.category.addEventListener("change", applyFilters);
+    elements.sort.addEventListener("change", applyFilters);
+    elements.minPrice.addEventListener("input", applyFilters);
+    elements.minPrice.addEventListener("change", applyFilters);
+    elements.maxPrice.addEventListener("input", applyFilters);
+    elements.maxPrice.addEventListener("change", applyFilters);
+    elements.reset.addEventListener("click", resetFilters);
+
+    // Nhấn Enter trong form không được tải lại trang.
+    elements.form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        applyFilters();
+    });
+
+    applyFilters();
+}
+
+initSearchFilter();
+```
+
+## D. `css/product-filter.css`
+
+```css
+/* ==========================================================
+   BỘ LỌC SẢN PHẨM - ICHIGO PRINTING
+   Chỉ tác động form #filter-form, #price-error và #filter-status.
+   Dùng biến màu và font đã khai báo trong style.css.
+   ========================================================== */
+
+/* ---------- Khung form ---------- */
+#filter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-end;
+}
+
+#filter-form .form-group {
+  margin-bottom: 0;
+  min-width: 0;
+}
+
+/* ---------- Hàng 1: từ khóa, danh mục, sắp xếp ---------- */
+.filter-field--search { flex: 2 1 240px; }
+.filter-field--select { flex: 1 1 180px; }
+
+/* ---------- Hàng 2: khoảng giá và nút đặt lại ---------- */
+.filter-price {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  flex: 2 1 320px;
+}
+.filter-price .filter-field { flex: 1 1 140px; }
+
+.filter-actions { flex: 0 0 auto; }
+.filter-actions .btn { min-height: 46px; white-space: nowrap; }
+
+/* ---------- Focus bàn phím ---------- */
+#filter-form input:focus-visible,
+#filter-form select:focus-visible,
+#filter-form .btn:focus-visible {
+  outline: 3px solid var(--primary-dark);
+  outline-offset: 2px;
+}
+
+/* ---------- Trạng thái lỗi ---------- */
+#filter-form input[aria-invalid="true"] {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.15);
+}
+
+#filter-form input[aria-invalid="true"]:focus-visible {
+  outline-color: var(--danger);
+}
+
+.filter-error {
+  margin: 0;
+  max-width: none;
+  padding: 10px 14px;
+  font-size: var(--fs-sm);
+  color: var(--danger);
+  background: #FBEAEA;
+  border-left: 4px solid var(--danger);
+  border-radius: var(--radius-sm);
+}
+
+/* ---------- Dòng đếm kết quả ---------- */
+#filter-status {
+  min-height: 1.65em;
+  margin-bottom: 16px;
+  color: var(--ink-soft);
+}
+
+/* ---------- Mobile: các điều khiển xếp dọc ---------- */
+@media (max-width: 576px) {
+  #filter-form .filter-row,
+  #filter-form .filter-price {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+  }
+
+  #filter-form .filter-field,
+  #filter-form .filter-price,
+  #filter-form .filter-actions {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  #filter-form .filter-actions .btn {
+    width: 100%;
+  }
+}
+```
+
+## E. Bảng kiểm thử
+
+**Trạng thái:** tôi **chưa chạy** bất kỳ kiểm thử nào, vì không có trình duyệt hay môi trường chạy trong phản hồi này. Cột "Mong đợi" là tính tay từ dữ liệu `products.js` bạn cung cấp. Cột "Thực tế" để bạn tự điền sau khi chạy.
+
+### Lọc và sắp xếp
+
+| # | Thao tác | Mong đợi | Thực tế |
+|---|---|---|---|
+| 1 | Không chọn điều kiện | ID 1,2,3,4,5,6,7,8 theo thứ tự gốc; dòng đếm "8 / 8" | Chưa chạy |
+| 2 | Giá 50000–100000, tăng dần | ID 6,5,8,3 | Chưa chạy |
+| 3 | Giá 50000–100000, giảm dần | ID 3,8,5,6 | Chưa chạy |
+| 4 | Chỉ giá từ 100000, mặc định | ID 1,2,7 | Chưa chạy |
+| 5 | Chỉ giá đến 60000, mặc định | ID 4,5,6 | Chưa chạy |
+| 6 | Hai đầu cùng 75000 | Chỉ ID 8 | Chưa chạy |
+| 7 | `acrylic` + Phụ kiện mica + 50000–100000 | Chỉ ID 8 (ID 7 giá 130000 bị loại) | Chưa chạy |
+| 8 | Giá từ 0, bỏ trống giá đến | Đủ 8 sản phẩm | Chưa chạy |
+| 9 | Giá đến 0 | 0 / 8, hiện "Không có sản phẩm phù hợp." | Chưa chạy |
+| 10 | Giá từ 200000 | 0 / 8, hiện "Không có sản phẩm phù hợp." | Chưa chạy |
+
+### Kiểm tra nhập liệu
+
+| # | Thao tác | Mong đợi | Thực tế |
+|---|---|---|---|
+| 11 | Giá từ 150000, giá đến 50000 | Hiện `#price-error` "Giá từ không được lớn hơn giá đến."; cả 2 ô có `aria-invalid="true"` và `aria-describedby="price-error"`; lưới hiện "Vui lòng nhập khoảng giá hợp lệ để xem sản phẩm."; dòng đếm trống | Chưa chạy |
+| 12 | Giá từ `-5` | Báo lỗi giá từ; không có thẻ sản phẩm | Chưa chạy |
+| 13 | Giá từ `12.5` | Báo lỗi giá từ | Chưa chạy |
+| 14 | Gõ ký tự `e` hoặc `-` vào ô giá (`badInput`) | Báo lỗi, không coi là ô trống, không hiện 8 sản phẩm | Chưa chạy |
+| 15 | Gõ `1e3` | Báo lỗi (regex chặt, xem phần A) | Chưa chạy |
+| 16 | Sau #11, sửa giá đến thành 200000 | Lỗi biến mất, `aria-invalid` và `aria-describedby` bị xóa, kết quả cập nhật | Chưa chạy |
+| 17 | Lỗi chỉ ở giá từ, giá đến hợp lệ | Chỉ ô giá từ có `aria-invalid` | Chưa chạy |
+| 18 | Nhấn Enter trong ô tìm kiếm hoặc ô giá | Trang không tải lại | Chưa chạy |
+
+### Đặt lại và giỏ hàng
+
+| # | Thao tác | Mong đợi | Thực tế |
+|---|---|---|---|
+| 19 | Lọc rồi bấm "Đặt lại bộ lọc" | Ô từ khóa và hai ô giá trống; danh mục "Tất cả danh mục"; sắp xếp "Mặc định"; đủ 8 sản phẩm theo thứ tự gốc; dòng đếm "8 / 8"; focus về ô tìm kiếm | Chưa chạy |
+| 20 | Nhập sai (#11 hoặc #14) rồi đặt lại | Lỗi và `aria-invalid` biến mất, đủ 8 sản phẩm | Chưa chạy |
+| 21 | Thêm sản phẩm vào giỏ sau khi lọc, rồi đặt lại | Số lượng giỏ giữ nguyên; thẻ dựng lại vẫn hiện đúng "CÓ n TRONG GIỎ HÀNG" | Chưa chạy |
+| 22 | Mỗi click "Thêm vào giỏ" sau nhiều lần lọc và đặt lại | Số lượng tăng đúng 1 mỗi click | Chưa chạy |
+| 23 | Kiểm tra DevTools sau nhiều lần lọc | Mỗi thẻ có đúng 1 `.cart-add-btn`; `#category-select` có đúng 5 option (1 "Tất cả" + 4 danh mục) | Chưa chạy |
+| 24 | Phát sự kiện `products:rendered` | Có phát khi có kết quả, khi rỗng và khi lỗi nhập liệu (kiểm tra bằng `document.addEventListener("products:rendered", ...)` trong Console) | Chưa chạy |
+
+### Giao diện và bàn phím
+
+| # | Thao tác | Mong đợi | Thực tế |
+|---|---|---|---|
+| 25 | Desktop (từ 992px) | Hàng 1: tìm kiếm, danh mục, sắp xếp; hàng 2: giá từ, giá đến, nút đặt lại | Chưa chạy |
+| 26 | Thu cửa sổ còn 390px | Các điều khiển xếp dọc, không có thanh cuộn ngang | Chưa chạy |
+| 27 | Nhấn `Tab` từ đầu form | Thứ tự: tìm kiếm → danh mục → sắp xếp → giá từ → giá đến → Đặt lại → thẻ sản phẩm; mọi điều khiển có viền focus rõ | Chưa chạy |
+| 28 | So độ cao ô giá và nút "Đặt lại bộ lọc" | Đáy cùng hàng; nếu lệch, chỉnh `min-height` của `.filter-actions .btn` (giá trị 46px là ước lượng, chưa đo) | Chưa chạy |
+
+### Kiểm tra dữ liệu gốc không bị đổi (dán vào Console)
+
+```javascript
+const before = JSON.stringify(products);
+const ids = function (criteria) {
+    return getVisibleProducts(products, criteria).map(function (p) { return p.id; }).join(",");
+};
+const base = { keyword: "", category: "all", sort: "default", minPrice: null, maxPrice: null };
+
+console.log(ids(Object.assign({}, base, { minPrice: 50000, maxPrice: 100000, sort: "asc" })));   // mong đợi: 6,5,8,3
+console.log(ids(Object.assign({}, base, { minPrice: 50000, maxPrice: 100000, sort: "desc" })));  // mong đợi: 3,8,5,6
+console.log(ids(Object.assign({}, base, { minPrice: 100000 })));                                  // mong đợi: 1,2,7
+console.log(ids(Object.assign({}, base, { maxPrice: 60000 })));                                   // mong đợi: 4,5,6
+console.log(ids(Object.assign({}, base, { minPrice: 75000, maxPrice: 75000 })));                  // mong đợi: 8
+
+console.log(validatePriceRange({ min: "150000", max: "50000" }).valid);                           // mong đợi: false
+console.log(validatePriceRange({ min: "", max: "", minBadInput: true }).valid);                   // mong đợi: false
+console.log(validatePriceRange({ min: "12.5", max: "" }).valid);                                  // mong đợi: false
+console.log(validatePriceRange({ min: "-5", max: "" }).valid);                                    // mong đợi: false
+console.log(validatePriceRange({ min: "", max: "" }).valid);                                      // mong đợi: true
+
+console.log(JSON.stringify(products) === before);                                                 // mong đợi: true
+console.log(products.map(function (p) { return p.id; }).join(","));                               // mong đợi: 1,2,3,4,5,6,7,8
+```
+
+Ghi lại kết quả chạy thật vào cột "Thực tế" bằng số liệu bạn quan sát được.
+
+## Giới hạn cần lưu ý
+
+| Điểm | Mức độ | Ghi chú |
+|---|---|---|
+| `cart.js`, `cart.css`, `header.css` không có trong đầu vào | Trung bình | Tôi không kiểm tra được hành vi `Cart.addToCart` hay style nút giỏ; các nhận định ở A chỉ dựa trên `cart-list.js` |
+| Xóa chữ đang nhập sai bằng `input.value = ""` | Thấp | Tôi không chắc mọi trình duyệt xóa sạch ký tự lỗi khi đặt lại; cần thử trên Chrome, Firefox và Safari |
+| Biểu tượng kính lúp trên header vẫn trỏ về `product.html` | Thấp | Ngoài phạm vi bước này, giữ nguyên |
+
+</details>
+
+### Kiểm tra và điều chỉnh sau phản hồi
+
+| Nội dung | Kết quả đối chiếu và điều chỉnh |
+|---|---|
+| Khoảng giá | Giữ lọc gồm cả hai biên, cho phép bỏ trống một hoặc hai đầu, kết hợp với từ khóa, danh mục và sắp xếp |
+| Nhập liệu | Giữ kiểm tra số nguyên không âm, số nguyên an toàn, thứ tự hai biên và `validity.badInput`. Cách phân tích chỉ nhận chữ số, nên `1e3` bị từ chối |
+| Giỏ hàng | Giữ `data-product-id`, cấu trúc thẻ và sự kiện `products:rendered`; không sửa các module giỏ hàng |
+| Khởi tạo | Bổ sung cờ `data-filter-initialized` để tránh gắn lặp listener submit khi gọi lại hàm khởi tạo |
+| Phạm vi CSS | Giới hạn các selector bổ sung trong `#filter-form`, dùng biến màu có sẵn và chiều cao tối thiểu thống nhất cho điều khiển |
+| Lỗi mobile sau điều chỉnh CSS | Ảnh 390 × 544 cho thấy khoảng trống lớn trước nút đặt lại. Selector desktop của ô giá có độ ưu tiên cao hơn selector mobile. Bổ sung `#filter-form .filter-price .filter-field` vào quy tắc mobile để áp dụng `flex: 0 0 auto` |
+| Số lựa chọn danh mục | Bảng của Claude ghi 5 option. Dữ liệu có 5 danh mục, vì vậy tổng đúng là 6 option khi tính cả “Tất cả danh mục” |
+| Nguồn mã cuối | Bản cuối có thêm các điều chỉnh sau phản hồi. Không gán toàn bộ mã cuối cho phản hồi Claude ban đầu |
+
+### Kiểm thử và minh chứng
+
+| Nguồn kiểm tra | Kết quả | Giới hạn |
+|---|---|---|
+| Node.js + LinkeDOM do ChatGPT/Codex thực hiện | 19 ca đạt trên mã đọc lại từ commit `91cad95`; kiểm tra lọc, lỗi, đặt lại, liên kết, sự kiện và giỏ hàng | Không có bộ dựng bố cục. Validity của input được mô phỏng, không xác nhận cách gõ số trên trình duyệt thật |
+| Ảnh desktop tại máy | Xác nhận khoảng giá 50.000–100.000đ có 4/8 kết quả; kết hợp acrylic và Phụ kiện mica còn Keychain; khoảng giá đảo ngược báo lỗi | Ảnh khoảng giá đang chọn Mặc định, không phải minh chứng giá tăng/giảm |
+| Ảnh mobile 390 × 544 trước sửa | Xác nhận focus nút, đếm 8/8 và phát hiện khoảng trống lớn | Thuộc bản trước sửa selector mobile |
+| Ảnh toàn trang sau sửa | Không còn khoảng trống lớn trước nút trong ảnh được cung cấp | Ảnh bị thu nhỏ còn 111 × 2047 pixel. Đây là kích thước tệp, không phải CSS viewport. Chỉ dùng đối chiếu bố cục tổng quát |
+| Giỏ hàng trong ảnh | Ảnh kết hợp hiển thị Keychain số lượng 2 và badge 2 | Ảnh tĩnh không chứng minh mỗi click tăng đúng 1 hoặc đầy đủ quá trình đặt lại |
+
+Chi tiết và ảnh được đặt tại [Bảng kiểm thử mở rộng Buổi 3](KIEM_THU_MO_RONG_BUOI3_TRUONG.md).
+
+### Trạng thái Git đã xác nhận
+
+| Commit | Nội dung | Xác nhận |
+|---|---|---|
+| `6591e798d18494afb8e97cc3a1f7426e8582cc39` | Tích hợp tìm kiếm, lọc, sắp xếp và giữ nút giỏ hàng | Đã đọc lại trên GitHub ở lượt trước |
+| `e5b012b6779ebee1759d5abf8673e7bfb91a4e7e` | Đồng bộ header theo trang About | Đã đọc lại commit và các tệp liên quan trên GitHub |
+| `91cad95b7817743a6c3816d46fbc7e81b2225f14` | Bổ sung lọc khoảng giá và đặt lại bộ lọc | Terminal xác nhận push lên `main`, working tree sạch. Đã đọc lại đủ ba file và kiểm tra lại 19 ca bằng DOM mô phỏng |
+
+Các trạng thái “đang chuẩn bị” trong mục nhật ký trước là ghi nhận tại thời điểm đó. Bảng này bổ sung trạng thái đã commit và push sau khi có kết quả xác nhận.
