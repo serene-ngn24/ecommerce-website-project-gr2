@@ -1,90 +1,81 @@
+(function () {
+    // Đồng bộ nội dung các nút với dữ liệu giỏ hàng hiện tại.
+    function updateCartButtons() {
+        if (!window.Cart) return;
 
-document.addEventListener("DOMContentLoaded", function () {
+        const cart = window.Cart.getCart();
+        const buttons = document.querySelectorAll("#product-list .cart-add-btn");
 
-    if (typeof products === "undefined" ||
-        !Array.isArray(products)) {
-        console.error("Khong tai duoc products.js");
-        return;
+        buttons.forEach(function (button) {
+            const item = cart.find(function (entry) {
+                return String(entry.productId) === button.dataset.productId;
+            });
+            const quantity = item ? Number(item.quantity) : 0;
+
+            button.textContent = quantity > 0
+                ? `CÓ ${quantity} TRONG GIỎ HÀNG`
+                : "THÊM VÀO GIỎ HÀNG";
+            button.classList.toggle("is-added", quantity > 0);
+        });
     }
 
-    const cards = document.querySelectorAll(".product");
-
-    cards.forEach(function (card) {
-
-        const name = card.querySelector(".product__title")
-            ?.textContent.trim();
-
-        const product = products.find(
-            p => p.name === name
-        );
-
-        if (!product) return;
-
-        // 1. Gan duong dan xem chi tiet theo ID
-        const detailLinks = card.querySelectorAll(
-        'a[href*="product-detail.html"]'
-        );
-
-        detailLinks.forEach(function (link) {
-        link.href = `product-detail.html?id=${product.id}`;
-        });
-
-        // 2. Lay khu vuc nut san pham
-        const footer = card.querySelector(".product__footer");
-
-        if (!footer || !window.Cart) return;
-
-        footer.classList.add("cart-actions");
-
-        // 3. Tao nut them vao gio
-        let button = footer.querySelector(".cart-add-btn");
-
-        if (!button) {
-            button = document.createElement("button");
-            button.type = "button";
-            button.className = "btn cart-add-btn";
-
-            // Dua nut them vao gio len tren
-            footer.prepend(button);
+    // Gắn nút cho các thẻ vừa được render, kể cả sau khi tìm kiếm hoặc lọc.
+    function initProductCartButtons() {
+        if (typeof products === "undefined" || !Array.isArray(products)) {
+            console.error("Không tải được products.js");
+            return;
         }
 
-        // 4. Doc so luong hien tai trong gio
-        function getQuantity() {
-            const item = Cart.getCart().find(
-                item => String(item.productId) === String(product.id)
-            );
+        if (!window.Cart) return;
 
-            return item ? Number(item.quantity) : 0;
-        }
+        const cards = document.querySelectorAll("#product-list .product");
 
-        // 5. Cap nhat noi dung nut
-        function updateButton() {
-            const quantity = getQuantity();
+        cards.forEach(function (card) {
+            const product = products.find(function (entry) {
+                return String(entry.id) === card.dataset.productId;
+            });
 
-            if (quantity > 0) {
-                button.textContent =
-                    `CÓ ${quantity} TRONG GIỎ HÀNG`;
+            if (!product) return;
 
-                button.classList.add("is-added");
-            } else {
-                button.textContent = "THÊM VÀO GIỎ HÀNG";
-                button.classList.remove("is-added");
+            card.querySelectorAll('a[href*="product-detail.html"]').forEach(function (link) {
+                link.href = `product-detail.html?id=${product.id}`;
+            });
+
+            const footer = card.querySelector(".product__footer");
+            if (!footer) return;
+
+            footer.classList.add("cart-actions");
+
+            let button = footer.querySelector(".cart-add-btn");
+            if (!button) {
+                button = document.createElement("button");
+                button.type = "button";
+                button.className = "btn cart-add-btn";
+                footer.prepend(button);
             }
-        }
 
-        // 6. Them san pham
-        button.addEventListener("click", function () {
-            const success = Cart.addToCart(product.id, 1);
+            button.dataset.productId = String(product.id);
 
-            if (success) {
-                updateButton();
+            if (!button.dataset.cartBound) {
+                button.addEventListener("click", function () {
+                    if (window.Cart.addToCart(product.id, 1)) {
+                        updateCartButtons();
+                    }
+                });
+                button.dataset.cartBound = "true";
             }
         });
 
-        updateButton();
+        updateCartButtons();
+    }
 
-        window.addEventListener("pageshow", updateButton);
-        window.addEventListener("storage", updateButton);
-    });
+    document.addEventListener("products:rendered", initProductCartButtons);
+    window.addEventListener("pageshow", updateCartButtons);
+    window.addEventListener("storage", updateCartButtons);
 
-});
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initProductCartButtons);
+    } else {
+        initProductCartButtons();
+    }
+})();
