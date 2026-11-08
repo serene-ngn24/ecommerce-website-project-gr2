@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Giỏ hàng Ichigo Printing">
+    <title>Ichigo Printing | Giỏ hàng</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/cart.css">
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container header__inner">
+            <a href="index.html" class="logo" aria-label="Ichigo Printing - Trang chủ">
+                <img src="../images/logo.png" alt="ICHIGO PRINTING">
+            </a>
+
+            <nav class="nav" aria-label="Menu điều hướng chính">
+                <a href="index.html">Trang chủ</a>
+                <a href="product.html">Sản phẩm</a>
+                <a href="about.html">Giới thiệu</a>
+            </nav>
+
+            <div class="header__icons">
+                <a href="product.html" class="header__icon" aria-label="Tìm kiếm sản phẩm">
+                    <svg viewBox="0 0 24 24" width="22" height="22"
+                         fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="7"></circle>
+                        <line x1="16" y1="16" x2="21" y2="21"></line>
+                    </svg>
+                </a>
+
+                <a href="cart.html" class="header__icon cart-header-link"
+                   aria-label="Giỏ hàng" aria-current="page">
+                    <svg viewBox="0 0 24 24" width="22" height="22"
+                         fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 3h2l2.4 12.2a2 2 0 0 0 2 1.6h8.8a2 2 0 0 0 2-1.6L22 7H6"></path>
+                        <circle cx="10" cy="21" r="1"></circle>
+                        <circle cx="19" cy="21" r="1"></circle>
+                    </svg>
+                    <span class="cart-badge" data-cart-count hidden>0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="cart-page">
+        <div class="container">
+
+            <!-- Đường dẫn -->
+            <nav class="cart-breadcrumb" aria-label="Đường dẫn">
+                <a href="index.html">Trang chủ</a>
+                <span>/</span>
+                <span>Giỏ hàng</span>
+            </nav>
+
+            <!-- Tiêu đề -->
+            <div class="cart-page__heading">
+                <div>
+                    
+                    <h1>Giỏ hàng</h1>
+                    <p>Kiểm tra sản phẩm và số lượng trước khi tiếp tục.</p>
+                </div>
+
+                <a href="product.html" class="btn btn--outline btn--sm">
+                    ← Tiếp tục mua sắm
+                </a>
+            </div>
+
+            <!-- Thông báo -->
+            <p id="cart-notice" class="cart-notice"
+               role="status" aria-live="polite" hidden></p>
+
+            <!-- Giỏ hàng trống -->
+            <div id="cart-empty" class="cart-empty">
+                <h2>Giỏ hàng đang trống</h2>
+                <p>Bạn chưa thêm sản phẩm nào vào giỏ hàng.</p>
+                <a href="product.html" class="btn">
+                    Khám phá sản phẩm
+                </a>
+            </div>
+
+            <!-- Giỏ hàng có sản phẩm -->
+            <div id="cart-layout" class="cart-layout" hidden>
+
+                <!-- Danh sách sản phẩm -->
+                <section class="cart-products" aria-labelledby="cart-list-title">
+                    <div class="cart-products__head">
+                        <h2 id="cart-list-title">Sản phẩm đã chọn</h2>
+                        <span id="cart-items-label">0 sản phẩm</span>
+                    </div>
+
+                    <div id="cart-items" class="cart-items">
+                        <!-- JavaScript sẽ hiển thị sản phẩm tại đây -->
+                    </div>
+                </section>
+
+                <!-- Tổng tiền -->
+                <aside class="cart-summary" aria-labelledby="cart-summary-title">
+                    <h2 id="cart-summary-title">Tóm tắt giỏ hàng</h2>
+
+                    <div class="cart-summary__row">
+                        <span>Tổng số lượng</span>
+                        <strong id="cart-total-quantity">0</strong>
+                    </div>
+
+                    <div class="cart-summary__row cart-summary__total">
+                        <span>Tổng tiền dự kiến</span>
+                        <strong id="cart-total-price">0đ</strong>
+                    </div>
+
+                    <p class="cart-summary__note">
+                        Giá chỉ mang tính minh họa, có thể thay đổi
+                        tùy theo yêu cầu in ấn thực tế.
+                    </p>
+
+                    <button type="button" class="btn cart-checkout-btn"
+                     onclick="alert('Chức năng thanh toán chưa được triển khai.')">
+                      Thanh toán
+                      </button>
+
+                    <a href="product.html" class="cart-continue-link">
+                     Tiếp tục mua sắm
+                    </a>
+
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div>
+                    <h3>ICHIGO PRINTING</h3>
+                    <p>In dấu những khoảnh khắc đặc biệt.</p>
+                </div>
+
+                <div>
+                    <h4>Liên kết</h4>
+                    <p><a href="index.html">Trang chủ</a></p>
+                    <p><a href="product.html">Sản phẩm</a></p>
+                    <p><a href="about.html">Giới thiệu</a></p>
+                </div>
+
+                <div>
+                    <h4>Theo dõi chúng tôi</h4>
+                    <p>Instagram | X | TikTok | YouTube</p>
+                </div>
+            </div>
+
+            <div class="footer__bottom">
+                <p>© 2026 Ichigo Printing. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+     
+<script src="../js/data/products.js"></script>
+<script src="../js/module/cart.js"></script>
+</body>
+</html>
