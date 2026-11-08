@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -9,15 +8,17 @@
 
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/cart.css">
-    
+
     <script src="../js/data/products.js" defer></script>
     <script src="../js/module/search-filter.js" defer></script>
     <script src="../js/module/cart.js" defer></script>
     <script src="../js/module/cart-list.js" defer></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/header.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/product-filter.css">
+    <link rel="stylesheet" href="../css/header.css">
 </head>
 
 <body>
@@ -80,36 +81,63 @@
                 </div>
 
                 <!-- SEARCH / FILTER / SORT -->
-                <form id="filter-form" role="search"
-                      aria-label="Tìm kiếm, lọc và sắp xếp sản phẩm"
-                      style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; margin-bottom: 16px;">
+                <form id="filter-form" role="search" novalidate
+                      aria-label="Tìm kiếm, lọc và sắp xếp sản phẩm">
 
-                    <div class="form-group" style="flex: 2 1 240px; margin-bottom: 0;">
-                        <label for="search-input">Tìm theo tên sản phẩm</label>
-                        <input type="text" id="search-input" name="keyword"
-                               placeholder="Ví dụ: acrylic" autocomplete="off">
+                    <!-- Hàng 1: từ khóa, danh mục, sắp xếp -->
+                    <div class="filter-row filter-row--main">
+                        <div class="form-group filter-field filter-field--search">
+                            <label for="search-input">Tìm theo tên sản phẩm</label>
+                            <input type="text" id="search-input" name="keyword"
+                                   placeholder="Ví dụ: acrylic" autocomplete="off">
+                        </div>
+
+                        <div class="form-group filter-field filter-field--select">
+                            <label for="category-select">Danh mục</label>
+                            <select id="category-select" name="category">
+                                <option value="all">Tất cả danh mục</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group filter-field filter-field--select">
+                            <label for="sort-select">Sắp xếp theo giá</label>
+                            <select id="sort-select" name="sort">
+                                <option value="default">Mặc định</option>
+                                <option value="asc">Giá tăng dần</option>
+                                <option value="desc">Giá giảm dần</option>
+                            </select>
+                        </div>
                     </div>
 
-                    <div class="form-group" style="flex: 1 1 180px; margin-bottom: 0;">
-                        <label for="category-select">Danh mục</label>
-                        <select id="category-select" name="category">
-                            <option value="all">Tất cả danh mục</option>
-                        </select>
+                    <!-- Hàng 2: khoảng giá và nút đặt lại -->
+                    <div class="filter-row filter-row--price">
+                        <div class="filter-price" role="group" aria-label="Khoảng giá">
+                            <div class="form-group filter-field">
+                                <label for="min-price">Giá từ (đ)</label>
+                                <input type="number" id="min-price" name="minPrice"
+                                       min="0" step="1" inputmode="numeric"
+                                       placeholder="0" autocomplete="off">
+                            </div>
+
+                            <div class="form-group filter-field">
+                                <label for="max-price">Giá đến (đ)</label>
+                                <input type="number" id="max-price" name="maxPrice"
+                                       min="0" step="1" inputmode="numeric"
+                                       placeholder="Không giới hạn" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="filter-actions">
+                            <button type="button" id="reset-filters" class="btn btn--outline">
+                                Đặt lại bộ lọc
+                            </button>
+                        </div>
                     </div>
 
-                    <div class="form-group" style="flex: 1 1 180px; margin-bottom: 0;">
-                        <label for="sort-select">Sắp xếp theo giá</label>
-                        <select id="sort-select" name="sort">
-                            <option value="default">Mặc định</option>
-                            <option value="asc">Giá tăng dần</option>
-                            <option value="desc">Giá giảm dần</option>
-                        </select>
-                    </div>
-
+                    <p id="price-error" class="filter-error" role="alert" hidden></p>
                 </form>
 
-                <p id="filter-status" role="status" aria-live="polite"
-                   style="margin-bottom: 16px; color: var(--ink-soft);"></p>
+                <p id="filter-status" role="status" aria-live="polite"></p>
 
                 <div class="grid grid--4" id="product-list"></div>
 

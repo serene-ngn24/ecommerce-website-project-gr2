@@ -1,0 +1,119 @@
+/* Bộ lọc sản phẩm Ichigo Printing */
+
+/* Khung form */
+#filter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+#filter-form .filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-end;
+}
+
+#filter-form .form-group {
+  margin-bottom: 0;
+  min-width: 0;
+}
+
+/* Tìm kiếm, danh mục và sắp xếp */
+#filter-form .filter-field--search {
+  flex: 2 1 240px;
+}
+
+#filter-form .filter-field--select {
+  flex: 1 1 180px;
+}
+
+/* Khoảng giá và nút đặt lại */
+#filter-form .filter-price {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  flex: 2 1 320px;
+  min-width: 0;
+}
+
+#filter-form .filter-price .filter-field {
+  flex: 1 1 140px;
+}
+
+#filter-form .filter-actions {
+  flex: 0 0 auto;
+}
+
+#filter-form .filter-actions .btn {
+  white-space: nowrap;
+}
+
+#filter-form input,
+#filter-form select,
+#filter-form .btn {
+  min-height: 48px;
+}
+
+/* Focus bàn phím */
+#filter-form input:focus-visible,
+#filter-form select:focus-visible,
+#filter-form .btn:focus-visible {
+  outline: 3px solid var(--primary-dark);
+  outline-offset: 2px;
+}
+
+/* Lỗi nhập liệu */
+#filter-form input[aria-invalid="true"] {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.15);
+}
+
+#filter-form input[aria-invalid="true"]:focus-visible {
+  outline-color: var(--danger);
+}
+
+#filter-form .filter-error {
+  margin: 0;
+  max-width: none;
+  padding: 10px 14px;
+  font-size: var(--fs-sm);
+  color: var(--danger);
+  background: #FBEAEA;
+  border-left: 4px solid var(--danger);
+  border-radius: var(--radius-sm);
+}
+
+#filter-form .filter-error[hidden] {
+  display: none;
+}
+
+/* Dòng đếm kết quả */
+#filter-status {
+  min-height: 1.65em;
+  margin-bottom: 16px;
+  color: var(--ink-soft);
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+  #filter-form .filter-row,
+  #filter-form .filter-price {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+  }
+
+  #filter-form .filter-field,
+  #filter-form .filter-price .filter-field,
+  #filter-form .filter-price,
+  #filter-form .filter-actions {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  #filter-form .filter-actions .btn {
+    width: 100%;
+  }
+}
