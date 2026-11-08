@@ -5,10 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Fabric Slogan | Ichigo Printing</title>
+  <title>Chi tiết sản phẩm | Ichigo Printing</title>
 
-  <!-- Liên kết đến CSS của nhóm -->
   <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/product-detail-cart.css">
 </head>
 
 <body>
@@ -16,89 +16,426 @@
 <main class="pd-page">
   <div class="pd-container">
 
-    <!-- Liên kết quay lại danh sách -->
+    <!-- Duong dan -->
     <nav class="pd-breadcrumb" aria-label="Đường dẫn">
       <a href="product.html">Sản phẩm</a>
-      <span>/ Fabric Slogan</span>
+      <span id="pd-breadcrumb-name">/ Fabric Slogan</span>
     </nav>
 
-    <!-- Khu vực chi tiết sản phẩm -->
+    <!-- Khu vuc chi tiet san pham -->
     <section class="pd-layout" aria-labelledby="pd-title">
 
-      <!-- Hình ảnh sản phẩm -->
+      <!-- Hinh anh -->
       <figure class="pd-media">
         <img
-          src="../images/product-2.jpg"
-          alt="Mẫu Fabric Slogan in theo yêu cầu"
+          src="../images/product-1.jpg"
+          alt="Fabric Slogan"
           class="pd-image"
+          id="pd-image"
         >
-        <figcaption>
+
+        <figcaption id="pd-caption">
           Hình ảnh mẫu sản phẩm Fabric Slogan.
         </figcaption>
       </figure>
 
-      
-<!-- Thông tin sản phẩm -->
-<div class="pd-info">
-  <p class="pd-category">ICHIGO PRINTING</p>
+      <!-- Thong tin san pham -->
+      <div class="pd-info">
 
-  <h1 id="pd-title">
-    Fabric Slogan - In theo yêu cầu
-  </h1>
+        <p class="pd-category">ICHIGO PRINTING</p>
 
-  <p class="pd-price">
-    Giá: <strong>249.000đ</strong>
-  </p>
+        <h1 id="pd-title">
+          Fabric Slogan - In theo yêu cầu
+        </h1>
+
+        <p class="pd-price">
+          Giá: <strong id="pd-unit-price">120.000đ</strong>
+        </p>
+
+        <!-- Mo ta va thong so duoc thay doi theo ID -->
+        <div id="pd-product-details">
+
+          <!-- San pham 1: Fabric Slogan -->
+          <p class="pd-description">
+            Fabric Slogan là sản phẩm cổ vũ dành cho
+            người hâm mộ K-pop, phù hợp sử dụng tại
+            concert, fan meeting hoặc làm quà tặng.
+
+            Sản phẩm được thiết kế cá nhân hóa với
+            hình ảnh thần tượng, tên nhóm nhạc hoặc
+            thông điệp riêng theo yêu cầu khách hàng.
+            Chất liệu vải mềm, bề mặt mịn, phù hợp
+            để in hình ảnh và màu sắc nổi bật.
+          </p>
+
+          <h2>Thông tin sản phẩm</h2>
+
+          <dl class="pd-specs">
+            <dt>Loại sản phẩm</dt>
+            <dd>Fabric Slogan</dd>
+
+            <dt>Chất liệu</dt>
+            <dd>Vải polyester mềm, bề mặt mịn</dd>
+
+            <dt>Kích thước</dt>
+            <dd>60 x 20 cm</dd>
+
+            <dt>Kiểu in</dt>
+            <dd>In chuyển nhiệt hai mặt</dd>
+
+            <dt>Thiết kế</dt>
+            <dd>Cá nhân hóa theo yêu cầu</dd>
+
+            <dt>Hình thức</dt>
+            <dd>Pre-order, sản xuất tại Hàn Quốc</dd>
+          </dl>
+
+        </div>
+
+        <!-- Chon so luong -->
+        <div class="pd-cart-controls">
+
+          <div class="pd-quantity-row">
+            <label for="pd-quantity">Số lượng</label>
+
+            <div class="pd-quantity-box">
+              <button
+                type="button"
+                id="pd-decrease"
+                aria-label="Giảm số lượng"
+              >−</button>
+
+              <output id="pd-quantity">1</output>
+
+              <button
+                type="button"
+                id="pd-increase"
+                aria-label="Tăng số lượng"
+              >+</button>
+            </div>
+          </div>
+
+          <!-- Tam tinh -->
+          <div class="pd-subtotal-row">
+            <span>Tạm tính</span>
+            <strong id="pd-line-total">120.000đ</strong>
+          </div>
+
+        </div>
+
+        <!-- Mua ngay -->
+        <button
+          type="button"
+          class="pd-buy-now"
+          id="pd-buy-now"
+        >
+          MUA NGAY
+        </button>
+
+        <p class="pd-note">
+          Giá và thông số sản phẩm mang tính giả định,
+          phục vụ giao diện minh họa của đồ án.
+          Chức năng thanh toán chưa được triển khai.
+        </p>
+
+      </div>
+
+    </section>
+  </div>
+</main>
+
+
+<!-- ================================== -->
+<!-- NOI DUNG CHI TIET CAC SAN PHAM KHAC -->
+<!-- ================================== -->
+
+
+<!-- San pham 2: Custom Printed Slogan -->
+<template id="pd-template-2">
 
   <p class="pd-description">
-    Fabric Slogan là sản phẩm cổ vũ dành cho
-    người hâm mộ K-pop, phù hợp sử dụng tại
-    concert, fan meeting hoặc làm quà tặng.
-
-    Sản phẩm được thiết kế cá nhân hóa với
-    hình ảnh thần tượng, tên nhóm nhạc hoặc
-    thông điệp riêng theo yêu cầu khách hàng.
-    Chất liệu vải mềm, bề mặt mịn, phù hợp
-    để in hình ảnh và màu sắc nổi bật.
+    Custom Printed Slogan là dòng slogan vải dành cho
+    người hâm mộ muốn tạo dấu ấn riêng tại concert,
+    fan meeting hoặc các hoạt động của fandom.
+    Khách hàng có thể lựa chọn hình ảnh thần tượng,
+    tên nhóm nhạc, câu slogan và phối màu theo
+    ý tưởng cá nhân. Sản phẩm sử dụng chất liệu
+    vải có bề mặt mịn, phù hợp với các thiết kế
+    nhiều màu sắc và hình in theo yêu cầu.
   </p>
 
   <h2>Thông tin sản phẩm</h2>
 
   <dl class="pd-specs">
     <dt>Loại sản phẩm</dt>
-    <dd>Fabric Slogan</dd>
+    <dd>Custom Printed Slogan</dd>
 
     <dt>Chất liệu</dt>
-    <dd>Vải polyester mềm, bề mặt mịn</dd>
+    <dd>Vải polyester dệt mịn</dd>
 
     <dt>Kích thước</dt>
-    <dd>60 x 20 cm</dd>
+    <dd>70 x 20 cm</dd>
 
     <dt>Kiểu in</dt>
-    <dd>In chuyển nhiệt hai mặt</dd>
+    <dd>In chuyển nhiệt theo mẫu thiết kế</dd>
 
     <dt>Thiết kế</dt>
-    <dd>Cá nhân hóa theo yêu cầu</dd>
+    <dd>Tùy chỉnh hình ảnh, chữ và màu sắc</dd>
 
     <dt>Hình thức</dt>
-    <dd>Pre-order, sản xuất tại Hàn Quốc</dd>
+    <dd>Pre-order theo thiết kế khách hàng</dd>
   </dl>
 
-  <button type="button" class="pd-buy-button">
-    ĐẶT IN NGAY
-  </button>
+</template>
 
-  <p class="pd-note">
-    Giá và thông số sản phẩm mang tính giả định,
-    phục vụ giao diện minh họa của đồ án.
-    Chức năng đặt hàng chưa được triển khai.
+
+<!-- San pham 3: Uchiwa Fan -->
+<template id="pd-template-3">
+
+  <p class="pd-description">
+    Uchiwa Fan là quạt cầm tay cổ vũ dành cho
+    người hâm mộ K-pop, thường được sử dụng tại
+    concert, fan meeting và các sự kiện của fandom.
+    Phần mặt quạt có thể in hình thần tượng,
+    tên nhóm nhạc hoặc thông điệp cổ vũ theo
+    thiết kế riêng. Sản phẩm có tay cầm thuận tiện,
+    chất liệu nhẹ và bề mặt in màu nổi bật,
+    phù hợp để sử dụng hoặc làm quà tặng.
   </p>
-</div>
+
+  <h2>Thông tin sản phẩm</h2>
+
+  <dl class="pd-specs">
+    <dt>Loại sản phẩm</dt>
+    <dd>Uchiwa Fan</dd>
+
+    <dt>Chất liệu</dt>
+    <dd>Nhựa PP và mặt in cán màng</dd>
+
+    <dt>Kích thước</dt>
+    <dd>Đường kính mặt quạt khoảng 20 cm</dd>
+
+    <dt>Kiểu in</dt>
+    <dd>In kỹ thuật số màu, cán màng bảo vệ</dd>
+
+    <dt>Thiết kế</dt>
+    <dd>Hình thần tượng hoặc mẫu cổ vũ riêng</dd>
+
+    <dt>Hình thức</dt>
+    <dd>Pre-order theo mẫu</dd>
+  </dl>
+
+</template>
 
 
-    </section>
-  </div>
-</main>
+<!-- San pham 4: Custom Badge -->
+<template id="pd-template-4">
+
+  <p class="pd-description">
+    Custom Badge là sản phẩm huy hiệu cá nhân hóa
+    dành cho người yêu thích K-pop, phù hợp để
+    trang trí balo, túi vải, áo khoác hoặc làm
+    quà tặng. Khách hàng có thể lựa chọn hình
+    ảnh thần tượng, biểu tượng fandom và thiết
+    kế theo sở thích riêng. Huy hiệu có kích
+    thước nhỏ gọn, sử dụng chất liệu kim loại
+    kết hợp lớp bảo vệ bề mặt, giúp hình in
+    được thể hiện rõ ràng và thuận tiện sử dụng.
+  </p>
+
+  <h2>Thông tin sản phẩm</h2>
+
+  <dl class="pd-specs">
+    <dt>Loại sản phẩm</dt>
+    <dd>Custom Badge</dd>
+
+    <dt>Chất liệu</dt>
+    <dd>Kim loại, bề mặt phủ màng bảo vệ</dd>
+
+    <dt>Kích thước</dt>
+    <dd>Khoảng 5–6 cm, tùy hình dáng</dd>
+
+    <dt>Kiểu in</dt>
+    <dd>In kỹ thuật số màu, phủ màng</dd>
+
+    <dt>Thiết kế</dt>
+    <dd>Tùy chỉnh hình ảnh và hình dáng</dd>
+
+    <dt>Hình thức</dt>
+    <dd>Pre-order theo mẫu</dd>
+  </dl>
+
+</template>
+
+
+<!-- San pham 5: Photocard Set -->
+<template id="pd-template-5">
+
+  <p class="pd-description">
+    Photocard Set là bộ thẻ ảnh dành cho
+    người hâm mộ K-pop, phù hợp với nhu cầu
+    sưu tầm, trao đổi hoặc làm quà tặng
+    trong cộng đồng fandom. Mỗi bộ có thể
+    sử dụng hình ảnh thần tượng, bố cục
+    và phong cách thiết kế theo yêu cầu
+    khách hàng. Thẻ được in trên chất liệu
+    giấy ảnh có độ cứng phù hợp, bề mặt
+    thể hiện màu sắc và hình ảnh rõ nét,
+    thuận tiện để lưu giữ trong album.
+  </p>
+
+  <h2>Thông tin sản phẩm</h2>
+
+  <dl class="pd-specs">
+    <dt>Loại sản phẩm</dt>
+    <dd>Photocard Set</dd>
+
+    <dt>Chất liệu</dt>
+    <dd>Giấy ảnh 300 gsm</dd>
+
+    <dt>Kích thước</dt>
+    <dd>5,5 x 8,5 cm mỗi thẻ</dd>
+
+    <dt>Kiểu in</dt>
+    <dd>In kỹ thuật số màu hai mặt</dd>
+
+    <dt>Thiết kế</dt>
+    <dd>Bộ ảnh cá nhân hóa theo yêu cầu</dd>
+
+    <dt>Hình thức</dt>
+    <dd>Pre-order theo bộ</dd>
+  </dl>
+
+</template>
+
+
+<!-- San pham 6: Photo Print / Postcard -->
+<template id="pd-template-6">
+
+  <p class="pd-description">
+    Photo Print / Postcard là dòng sản phẩm
+    ảnh in và bưu thiếp cá nhân hóa, phù hợp
+    để lưu giữ kỷ niệm hoặc gửi tặng bạn bè
+    trong cộng đồng K-pop. Khách hàng có thể
+    lựa chọn hình ảnh thần tượng, thêm lời
+    nhắn và điều chỉnh bố cục theo nhu cầu.
+    Sản phẩm sử dụng giấy in ảnh hoặc giấy
+    mỹ thuật, có khả năng thể hiện màu sắc
+    rõ ràng, thích hợp để trưng bày, sưu
+    tầm hoặc làm quà tặng.
+  </p>
+
+  <h2>Thông tin sản phẩm</h2>
+
+  <dl class="pd-specs">
+    <dt>Loại sản phẩm</dt>
+    <dd>Photo Print / Postcard</dd>
+
+    <dt>Chất liệu</dt>
+    <dd>Giấy ảnh hoặc giấy mỹ thuật</dd>
+
+    <dt>Kích thước</dt>
+    <dd>10 x 15 cm mỗi tấm</dd>
+
+    <dt>Kiểu in</dt>
+    <dd>In kỹ thuật số màu</dd>
+
+    <dt>Thiết kế</dt>
+    <dd>Tùy chỉnh hình ảnh, bố cục và lời nhắn</dd>
+
+    <dt>Hình thức</dt>
+    <dd>Pre-order theo mẫu</dd>
+  </dl>
+
+</template>
+
+
+<!-- San pham 7: Acrylic Standee -->
+<template id="pd-template-7">
+
+  <p class="pd-description">
+    Acrylic Standee là sản phẩm mô hình mica
+    trưng bày dành cho người hâm mộ K-pop,
+    phù hợp để đặt trên bàn học, bàn làm việc
+    hoặc kệ sưu tầm. Khách hàng có thể lựa
+    chọn hình ảnh thần tượng, nhân vật hoặc
+    thiết kế cá nhân để tạo hình sản phẩm.
+    Standee sử dụng chất liệu mica trong,
+    có phần đế giúp đứng vững và bề mặt
+    in màu, thích hợp để trang trí không
+    gian cá nhân hoặc làm quà tặng.
+  </p>
+
+  <h2>Thông tin sản phẩm</h2>
+
+  <dl class="pd-specs">
+    <dt>Loại sản phẩm</dt>
+    <dd>Acrylic Standee</dd>
+
+    <dt>Chất liệu</dt>
+    <dd>Mica acrylic trong</dd>
+
+    <dt>Kích thước</dt>
+    <dd>Cao khoảng 10–12 cm</dd>
+
+    <dt>Kiểu in</dt>
+    <dd>In UV trên mica</dd>
+
+    <dt>Thiết kế</dt>
+    <dd>Cắt tạo hình theo mẫu cá nhân hóa</dd>
+
+    <dt>Hình thức</dt>
+    <dd>Pre-order theo thiết kế</dd>
+  </dl>
+
+</template>
+
+
+<!-- San pham 8: Acrylic Keychain -->
+<template id="pd-template-8">
+
+  <p class="pd-description">
+    Acrylic Keychain là sản phẩm móc khóa
+    mica cá nhân hóa dành cho người hâm mộ
+    K-pop, có thể sử dụng để trang trí balo,
+    túi xách hoặc chùm chìa khóa. Khách hàng
+    có thể lựa chọn hình ảnh thần tượng,
+    tên nhóm nhạc và hình dáng theo thiết kế
+    riêng. Sản phẩm sử dụng chất liệu mica
+    trong kết hợp khoen kim loại, có kích
+    thước nhỏ gọn và bề mặt in màu, phù hợp
+    để sưu tầm hoặc làm quà tặng.
+  </p>
+
+  <h2>Thông tin sản phẩm</h2>
+
+  <dl class="pd-specs">
+    <dt>Loại sản phẩm</dt>
+    <dd>Acrylic Keychain</dd>
+
+    <dt>Chất liệu</dt>
+    <dd>Mica acrylic trong, khoen kim loại</dd>
+
+    <dt>Kích thước</dt>
+    <dd>Khoảng 5 x 5 cm</dd>
+
+    <dt>Kiểu in</dt>
+    <dd>In UV màu trên mica</dd>
+
+    <dt>Thiết kế</dt>
+    <dd>Cắt hình theo mẫu cá nhân hóa</dd>
+
+    <dt>Hình thức</dt>
+    <dd>Pre-order theo thiết kế</dd>
+  </dl>
+
+</template>
+
+
+<!-- JavaScript -->
+<script src="../js/data/products.js"></script>
+<script src="../js/module/cart.js"></script>
+<script src="../js/module/product-detail-cart.js"></script>
 
 </body>
 </html>
