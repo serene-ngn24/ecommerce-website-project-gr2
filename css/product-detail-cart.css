@@ -1,0 +1,102 @@
+
+/* Chon so luong va tam tinh */
+
+.pd-cart-controls {
+    margin: 26px 0 20px;
+}
+
+.pd-quantity-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.pd-quantity-row label {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.pd-quantity-box {
+    display: flex;
+    align-items: center;
+    border: 1px solid #e4d8db;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.pd-quantity-box button {
+    width: 46px;
+    height: 44px;
+    border: none;
+    background: #f8f3f4;
+    color: #991F37;
+    font-size: 23px;
+    cursor: pointer;
+}
+
+.pd-quantity-box button:hover:not(:disabled) {
+    background: #f1e3e7;
+}
+
+.pd-quantity-box button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.pd-quantity-box output {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 45px;
+    height: 44px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Tong tien san pham dang chon */
+
+.pd-subtotal-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 0;
+    border-top: 1px solid #e4d8db;
+}
+
+.pd-subtotal-row strong {
+    color: #991F37;
+    font-size: 24px;
+}
+
+/* Nut mua ngay */
+
+.pd-buy-now {
+    display: block;
+    width: 100%;
+    margin-top: 12px;
+    padding: 15px;
+    border: 2px solid #991F37;
+    border-radius: 8px;
+    background: #fff;
+    color: #991F37;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.pd-buy-now:hover {
+    background: #f8f3f4;
+}
+
+@media (max-width: 480px) {
+    .pd-subtotal-row strong {
+        font-size: 20px;
+    }
+
+    .pd-quantity-box button {
+        width: 40px;
+    }
+}
