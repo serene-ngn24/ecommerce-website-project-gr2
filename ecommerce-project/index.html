@@ -8,47 +8,45 @@
     <title>Ichigo Printing | Trang chủ</title>
 
     <link rel="stylesheet" href="../css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/header.css">
+  <script src="../js/data/products.js" defer></script>
+  <script src="../js/module/cart.js" defer></script>
 </head>
 
 <body>
 
     <!-- HEADER -->
-    <header class="header">
-        <div class="container header__inner">
-
-            <a href="index.html" class="logo" aria-label="Ichigo Printing - Trang chủ">
-                <img src="../images/logo.png" alt="ICHIGO PRINTING">
-            </a>
-
-            <nav class="nav" aria-label="Menu điều hướng chính">
-                <a href="index.html" class="active" aria-current="page">Trang chủ</a>
-                <a href="product.html">Sản phẩm</a>
-                <a href="about.html">Giới thiệu</a>
-            </nav>
-
-            <div class="header__icons">
-                <a href="product.html" class="header__icon" aria-label="Tìm kiếm sản phẩm">
-                    <svg viewBox="0 0 24 24" width="22" height="22"
-                         fill="none" stroke="currentColor" stroke-width="2"
-                         stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="7"></circle>
-                        <line x1="16" y1="16" x2="21" y2="21"></line>
-                    </svg>
-                </a>
-
-                <a href="product.html" class="header__icon" aria-label="Xem sản phẩm">
-                    <svg viewBox="0 0 24 24" width="22" height="22"
-                         fill="none" stroke="currentColor" stroke-width="2"
-                         stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M3 3h2l2.4 12.2a2 2 0 0 0 2 1.6h8.8a2 2 0 0 0 2-1.6L22 7H6"></path>
-                        <circle cx="10" cy="21" r="1"></circle>
-                        <circle cx="19" cy="21" r="1"></circle>
-                    </svg>
-                </a>
-            </div>
-
-        </div>
-    </header>
+<header class="header site-header">
+  <div class="container header__inner">
+    <a class="logo" href="index.html" aria-label="Ichigo Printing - Trang chủ">
+      <img src="../images/logo.png" alt="Ichigo Printing" width="2000" height="2000">
+    </a>
+    <nav class="nav" aria-label="Điều hướng chính">
+      <a href="index.html" class="active" aria-current="page">Trang chủ</a>
+      <a href="product.html">Sản phẩm</a>
+      <a href="about.html">Giới thiệu</a>
+    </nav>
+    <div class="header__icons">
+      <a href="product.html" class="header__icon" aria-label="Tìm kiếm sản phẩm">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <line x1="16" y1="16" x2="21" y2="21"></line>
+        </svg>
+      </a>
+      <a href="cart.html" class="header__icon cart-header-link" aria-label="Giỏ hàng">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 3h2l2.4 12.2a2 2 0 0 0 2 1.6h8.8a2 2 0 0 0 2-1.6L22 7H6"></path>
+          <circle cx="10" cy="21" r="1"></circle>
+          <circle cx="19" cy="21" r="1"></circle>
+        </svg>
+        <span class="cart-badge" data-cart-count hidden>0</span>
+      </a>
+    </div>
+  </div>
+</header>
 
     <main>
 
