@@ -100,3 +100,19 @@
         width: 40px;
     }
 }
+
+/* Thông báo khi không tìm thấy sản phẩm */
+#pd-error {
+    display: block;
+    margin: 35px auto;
+    padding: 28px 24px;
+    max-width: 850px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.6;
+    color: #a51f3d;
+    background-color: #fff5f6;
+    border: 1px solid #f1c5ce;
+    border-radius: 10px;
+}
