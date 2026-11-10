@@ -179,3 +179,59 @@
 .pd-subtotal-row {
     padding: 12px 0;
 }
+/* Sap xep lai thu tu thong tin san pham */
+
+.pd-info {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Cho phep sap xep rieng mo ta va thong so */
+#pd-product-details {
+    display: contents;
+}
+
+/* Mac dinh dua cac thong so xuong duoi */
+#pd-product-details > * {
+    order: 7;
+}
+
+/* 1. Ten san pham */
+.pd-info > #pd-title {
+    order: 1;
+    margin-bottom: 12px;
+}
+
+/* 2. Mo ta san pham */
+#pd-product-details > .pd-description {
+    order: 2;
+    margin: 8px 0 20px;
+    line-height: 1.7;
+}
+
+/* 3. Gia san pham */
+.pd-info > .pd-price {
+    order: 3;
+    margin-bottom: 18px;
+}
+
+/* 4-5. So luong va tam tinh */
+.pd-info > .pd-cart-controls {
+    order: 4;
+}
+
+/* 6. Nut mua ngay */
+.pd-info > .pd-buy-now {
+    order: 5;
+}
+
+/* Ghi chu duoi nut mua */
+.pd-info > .pd-note {
+    order: 6;
+    margin: 12px 0 24px;
+}
+
+/* 7. Thong tin san pham */
+#pd-product-details > :not(.pd-description) {
+    margin-top: 12px;
+}
