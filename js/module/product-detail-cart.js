@@ -96,8 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     setText("pd-breadcrumb-name", "/ " + product.name);
-    setText("pd-category", product.category);
-    setText("pd-title", product.name + " - In theo yêu cầu");
+    setText("pd-title", product.name);
     setText("pd-unit-price", formatPrice(product.price));
 
     setText(
