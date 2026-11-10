@@ -116,3 +116,66 @@
     border: 1px solid #f1c5ce;
     border-radius: 10px;
 }
+/* Sap xep lai giao dien chi tiet san pham */
+
+.pd-info {
+    display: flex;
+    flex-direction: column;
+}
+
+/* An dong danh muc nho */
+.pd-info > .pd-category {
+    display: none;
+}
+
+/* Thu tu hien thi */
+.pd-info > h1 {
+    order: 1;
+    margin: 0 0 12px;
+}
+
+.pd-info > .pd-price {
+    order: 2;
+    margin: 0 0 16px;
+}
+
+.pd-info > .pd-cart-controls {
+    order: 3;
+    margin: 0 0 12px;
+}
+
+.pd-info > .pd-buy-now {
+    order: 4;
+    margin: 0;
+}
+
+.pd-info > .pd-note {
+    order: 5;
+    margin: 12px 0;
+}
+
+.pd-info > #pd-product-details {
+    order: 6;
+    margin-top: 16px;
+}
+
+/* Thu gon khoang cach dau trang */
+.pd-page {
+    padding-top: 16px;
+}
+
+.pd-breadcrumb {
+    margin-bottom: 16px;
+}
+
+.pd-layout {
+    gap: 28px;
+}
+
+.pd-quantity-row {
+    margin-bottom: 12px;
+}
+
+.pd-subtotal-row {
+    padding: 12px 0;
+}
